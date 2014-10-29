@@ -1,0 +1,3 @@
+var GLOBAL_SYMBOL_SPACE = ' ';
+var GLOBAL_SYMBOL_PERIOD = '.';
+
