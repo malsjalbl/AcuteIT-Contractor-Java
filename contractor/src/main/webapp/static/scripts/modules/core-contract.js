@@ -78,10 +78,10 @@ contractModule.factory('contractService',
 	
 		var CLASS_NAME = 'Contract';
 		var optionsOnListView = [];
-		var EntityResource = $resource('/mileage/contracts/:id', {id:'@id'},
+		var EntityResource = $resource('/contractor/contracts/:id', {id:'@id'},
 				
 								{getPage: {method:'GET',
-								 url: '/mileage/contracts/page/:page',
+								 url: '/contractor/contracts/page/:page',
 								 isArray: false}
 		});
 		
@@ -258,10 +258,10 @@ contractModule.factory('contractActivityTypeService',
 	
 	var CLASS_NAME = 'Contract Activity Type';
 	var optionsOnlistView = [];
-	var EntityResource = $resource('/mileage/contract_activity_types/:id', {id:'@id'},
+	var EntityResource = $resource('/contractor/contract_activity_types/:id', {id:'@id'},
 			
 							{getPage: {method:'GET',
-							 url: '/mileage/contract-activity-types/page/:page',
+							 url: '/contractor/contract-activity-types/page/:page',
 							 isArray: false}
 	});
 
@@ -408,7 +408,7 @@ contractModule.factory('locationService',
 	 
 	function($resource) {  
 	
-		var Location = $resource('/mileage/location/:id', {id: '@id'});
+		var Location = $resource('/contractor/location/:id', {id: '@id'});
 		var locations = null;
 		
 		var locationFactory = {};
