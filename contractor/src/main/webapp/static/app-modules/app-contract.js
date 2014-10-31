@@ -92,14 +92,19 @@ contractModule.factory('contractService',
 	
 		var CLASS_NAME = 'Contract';
 		var optionsOnListView = [];
-		var EntityResource = $resource(
+		/*var EntityResource = $resource(
 				
 								'/contractor/contracts/:id',
-								{id:'@id'},
-								{getPage: {method:'GET',
-								 url: '/contractor/contracts/page/:page',
-								 isArray: false}
-		});
+								 {id:'@id'},
+								 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: false}}
+		);*/
+		
+		var EntityResource = dataService.getEntityResource(
+				
+				'/contractor/contracts/:id',
+				 {id:'@id'},
+				 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: false}}
+		);
 		
 		var factory = {};
 		

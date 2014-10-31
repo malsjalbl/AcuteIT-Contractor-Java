@@ -12,8 +12,8 @@ dataModule.factory('dataService',
 		
 		var dataFactory = {};
 		
-		dataFactory.getEntityResource = function(resourceUrl, resourceIdObject) {
-			return $resource(resourceUrl, resourceIdObject);
+		dataFactory.getEntityResource = function(resourceUrl, resourceId, customActions) {
+			return $resource(resourceUrl, resourceId, customActions);
 		};
 
 		dataFactory.getAllEntities = function(entityResource) {
