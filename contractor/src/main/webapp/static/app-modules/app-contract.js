@@ -1,11 +1,20 @@
 
-var contractModule = angular.module('contract', ['ngResource',
-                                                  'ngRoute',
-                                                  'ngSanitize',
-                                                  'app',
-                                                  'core-data',
-                                                  'core-messaging',
-                                                  'core-view']);
+var contractModule = angular.module('app-contract', ['app-main',
+                                                     'common-data',
+                                                     'common-messaging',
+                                                     'common-view']);
+
+app-contract.value('MODULE_DISPLAY_NAME', 'Contract');
+app-contract.value('MODULE_HOME_URL', '#/contracts/page/1');
+
+app-contract.value('OPTION_DISPLAY_NAME_CONTRACTS', 'Contracts');
+app-contract.value('OPTION_HOME_URL_CONTRACTS', '#/contracts/page/1');
+
+app-contract.value('OPTION_DISPLAY_NAME_COMPANIES', 'Companies');
+app-contract.value('OPTION_HOME_URL_COMPANIES', '#/companies/page/1');
+
+app-contract.value('OPTION_DISPLAY_NAME_ACTIVITY_CODES', 'Activity Codes');
+app-contract.value('OPTION_HOME_URL_ACTIVITY_CODES', '#/contract_activity_types/page/1');
  
 contractModule.run(
 		
@@ -13,17 +22,23 @@ contractModule.run(
 			
 			 appService.registerModule({
 				
-				 displayName:	'Contract',
-				 homeUrl:		'#/contracts/page/1',
-				 views:			[{displayName: 'Contracts', homeUrl: '#/contracts/page/1'},
-				       			 {displayName: 'Companies', homeUrl: '#/companies/page/1'},
-				       			 {displayName: 'Activity Types', homeUrl: '#/contract_activity_types/page/1'}]
+				 displayName:	MODULE_DISPLAY_NAME,
+				 homeUrl:		MODULE_HOME_URL,
+				 
+				 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS},
+				       			 {displayName: OPTION_DISPLAY_NAME_COMPANIES, homeUrl: OPTION_HOME_URL_COMPANIES},
+				       			 {displayName: OPTION_DISPLAY_NAME_ACTIVITY_CODES, homeUrl: OPTION_HOME_URL_ACTIVITY_CODES}]
 			 });
 			 
 			 contractService.setOptionsOnListView([
 					
 				 {displayLabel: 'New Contract', url: '/contracts/0', isDisabled: false},
 			]);
+			 
+			 /*contractService.setOptionsOnListView([
+			                   					
+  				 {displayLabel: 'New Contract', url: '/contracts/0', isDisabled: false},
+  			]);*/
 			 
 			 contractActivityTypeService.setOptionsOnListView([
 			                   					

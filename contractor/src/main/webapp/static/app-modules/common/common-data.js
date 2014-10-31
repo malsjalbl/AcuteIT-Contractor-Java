@@ -1,8 +1,8 @@
 
-var dataModule = angular.module('core-data', ['ngResource']);
+var dataModule = angular.module('common-data', ['ngResource']);
  
-/*DATA SERVICE*
- **************/
+/* GENERIC DATA SERVICE*
+ ***********************/
 
 dataModule.factory('dataService', 
 	 

@@ -1,18 +1,14 @@
-var app = angular.module('app', ['core-data',
-                                 'contract',
-                                 'core-messaging',
-                                 'mileage-vehicle',
-                                 'ui-helper',
-                                 'ui.bootstrap']);
-
-/*var app = angular.module('app', ['core-messaging',
-                                 'ui.bootstrap']);*/
+var app = angular.module('app-main', ['common-data',
+                                      'common-ui',
+                                      'common-messaging',
+                                      'app-contract',
+                                      'ui.bootstrap']);
 
 app.value('defaultModule', 0);
 
 app.run(
 		
-	 function(appService) {
+	/* function(appService) {
 		
 		appService.registerModule({
 			
@@ -38,7 +34,7 @@ app.run(
 			      			 {displayName: 'Locations', homeUrl: '#/locations'},
 			      			 {displayName: 'Journeys', homeUrl: '#/journeys'}]
 		});
-	}
+	}*/
 );
 
 app.controller('appController',

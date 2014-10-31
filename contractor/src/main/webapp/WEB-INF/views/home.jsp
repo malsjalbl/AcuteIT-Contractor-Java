@@ -2,6 +2,7 @@
 <html data-ng-app='app'>
 <head>
     <title></title>
+    
     <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.css"/>
     <script src="static/jquery/jquery-1.9.1.min.js"></script>
     <script src="static/json/json2.js"></script>
@@ -11,16 +12,13 @@
     <script src="static/angular-strap/angular-strap.js"></script>
     <script src="static/angular-strap/angular-strap.tpl.js"></script>
     <script src="static/ui-bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
-    <script src="static/app-modules/common/data.js"></script>
-    <script src="static/app-modules/common/ui.js"></script>
-    <script src="static/app-modules/common/view.js"></script>
-	<script src="static/app-modules/common/messaging.js"></script>
+    <script src="static/app-modules/common/common-data.js"></script>
+    <script src="static/app-modules/common/common-ui.js"></script>
+    <script src="static/app-modules/common/common-view.js"></script>
+	<script src="static/app-modules/common/common-messaging.js"></script>
     <script src="static/app-modules/contract.js"></script>
     <script src="static/app-modules/mileage-vehicle.js"></script>
-
     <script src="static/app-modules/app.js"></script>
-
-    <script src="static/scripts/global/constants.js"></script>
 
 </head>
 
