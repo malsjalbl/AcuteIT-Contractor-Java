@@ -21,7 +21,7 @@ contractModule.run(
 		 function(appService, contractService, contractActivityTypeService) {
 			
 			 appService.registerModule({
-				
+				 
 				 displayName:	MODULE_DISPLAY_NAME,
 				 homeUrl:		MODULE_HOME_URL,
 				 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS},
@@ -88,7 +88,7 @@ contractModule.config(
 // contractService factory
 contractModule.factory('contractService',
 	 
-	function(dataService, viewService, messagingService, $resource) {
+	function(dataService, viewService, messagingService) {
 	
 		var CLASS_NAME = 'Contract';
 		var optionsOnListView = [];

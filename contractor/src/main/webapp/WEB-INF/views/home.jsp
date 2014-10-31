@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app='app'>
+<html data-ng-app='app-main'>
 <head>
     <title></title>
     
@@ -18,7 +18,7 @@
 	<script src="static/app-modules/common/common-messaging.js"></script>
     <script src="static/app-modules/contract.js"></script>
     <script src="static/app-modules/mileage-vehicle.js"></script>
-    <script src="static/app-modules/app.js"></script>
+    <script src="static/app-modules/app-main.js"></script>
 
 </head>
 
