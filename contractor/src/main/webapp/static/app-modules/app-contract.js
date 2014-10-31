@@ -24,7 +24,6 @@ contractModule.run(
 				
 				 displayName:	MODULE_DISPLAY_NAME,
 				 homeUrl:		MODULE_HOME_URL,
-				 
 				 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS},
 				       			 {displayName: OPTION_DISPLAY_NAME_COMPANIES, homeUrl: OPTION_HOME_URL_COMPANIES},
 				       			 {displayName: OPTION_DISPLAY_NAME_ACTIVITY_CODES, homeUrl: OPTION_HOME_URL_ACTIVITY_CODES}]
@@ -93,8 +92,10 @@ contractModule.factory('contractService',
 	
 		var CLASS_NAME = 'Contract';
 		var optionsOnListView = [];
-		var EntityResource = $resource('/contractor/contracts/:id', {id:'@id'},
+		var EntityResource = $resource(
 				
+								'/contractor/contracts/:id',
+								{id:'@id'},
 								{getPage: {method:'GET',
 								 url: '/contractor/contracts/page/:page',
 								 isArray: false}
