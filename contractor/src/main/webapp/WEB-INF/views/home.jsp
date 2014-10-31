@@ -2,21 +2,23 @@
 <html data-ng-app='app'>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="static/bootstrap3/css/bootstrap.css"/>
-    <script src="static/scripts/jquery/jquery-1.9.1.min.js"></script>
-    <script src="static/scripts/json/json2.js"></script>
-    <script src="static/scripts/angular/angular.js"></script>
-    <script src="static/scripts/angular/angular-resource.js"></script>
-    <script src="static/scripts/angular/angular-route.js"></script>
-    <script src="static/scripts/angular/angular-sanitize.js"></script>
-    <script src="static/scripts/ui-bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
-    <script src="static/scripts/modules/core-data.js"></script>
-    <script src="static/scripts/modules/core-contract.js"></script>
-	<script src="static/scripts/modules/core-messaging.js"></script>
-    <script src="static/scripts/modules/mileage-vehicle.js"></script>
-    <script src="static/scripts/modules/ui-helper.js"></script>
-    <script src="static/scripts/modules/core-view.js"></script>
-    <script src="static/scripts/modules/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.css"/>
+    <script src="static/jquery/jquery-1.9.1.min.js"></script>
+    <script src="static/json/json2.js"></script>
+    <script src="static/angularJS/angular.js"></script>
+    <script src="static/angularJS/angular-resource.js"></script>
+    <script src="static/angularJS/angular-route.js"></script>
+    <script src="static/angular-strap/angular-strap.js"></script>
+    <script src="static/angular-strap/angular-strap.tpl.js"></script>
+    <script src="static/ui-bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+    <script src="static/app-modules/common/data.js"></script>
+    <script src="static/app-modules/common/ui.js"></script>
+    <script src="static/app-modules/common/view.js"></script>
+	<script src="static/app-modules/common/messaging.js"></script>
+    <script src="static/app-modules/contract.js"></script>
+    <script src="static/app-modules/mileage-vehicle.js"></script>
+
+    <script src="static/app-modules/app.js"></script>
 
     <script src="static/scripts/global/constants.js"></script>
 

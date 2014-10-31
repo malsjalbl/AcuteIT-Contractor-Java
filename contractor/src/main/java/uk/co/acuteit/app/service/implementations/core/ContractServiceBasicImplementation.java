@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import uk.co.acuteit.app.entity.contract.Contract;
+import uk.co.acuteit.app.entity.contract.ContractEntity;
 import uk.co.acuteit.app.repository.core.IContractRepository;
 import uk.co.acuteit.app.service.interfaces.core.IContractServiceBasic;
 
@@ -21,27 +21,27 @@ public class ContractServiceBasicImplementation implements IContractServiceBasic
 	private IContractRepository repository;
 	
 	@Override
-	public void delete(Contract contract) {
+	public void delete(ContractEntity contract) {
 		repository.delete(contract);
 	}
 
 	@Override
-	public Contract save(Contract contract) {
+	public ContractEntity save(ContractEntity contract) {
 		return repository.save(contract);
 	}
 
 	@Override
-	public Contract findById(Long id) {
+	public ContractEntity findById(Long id) {
 		return repository.findOne(id);
 	}
 
 	@Override
-	public List<Contract> findAll() {
+	public List<ContractEntity> findAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	public Page<Contract> getPage(int pageNumber) {
+	public Page<ContractEntity> getPage(int pageNumber) {
 		PageRequest pageRequest = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "symbol");
 	        return repository.findAll(pageRequest);
 	}
