@@ -174,5 +174,4 @@ public class ApplicationContext {
     public IVehicleServiceBasic vehicleService() {
     	return new VehicleServiceBasicImpl();
     }
-    
 }
