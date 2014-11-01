@@ -1,5 +1,5 @@
 
-var messagingModule = angular.module('core-messaging', []);
+var messagingModule = angular.module('common-messaging', []);
  
 /*MESSAGING SERVICE*
  *******************/

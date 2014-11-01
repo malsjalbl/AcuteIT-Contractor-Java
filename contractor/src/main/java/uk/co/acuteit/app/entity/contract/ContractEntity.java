@@ -18,7 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Contract implements Serializable {
+public class ContractEntity implements Serializable {
 	
 	private static final long serialVersionUID = -8712872385957386182L;
 	
@@ -27,7 +27,7 @@ public class Contract implements Serializable {
 	private String description;
 	private Date startDate;
 	private Date endDate;
-	private List<ContractActivityLogItem> contractActivityLogItems;
+	private List<ContractActivityLogItemEntity> contractActivityLogItems;
 	
 	// ID - Primary Key
 	// ----------------
@@ -68,11 +68,11 @@ public class Contract implements Serializable {
 	// -----------------------
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
 	@JoinTable(name = "lnk_contract_action_log")
-	public List<ContractActivityLogItem> getContractActivityLogItems() {
+	public List<ContractActivityLogItemEntity> getContractActivityLogItems() {
 		return this.contractActivityLogItems;
 	}
 	
-	public void setContractActivityLogItems(List<ContractActivityLogItem> contractActivityLogItems) {
+	public void setContractActivityLogItems(List<ContractActivityLogItemEntity> contractActivityLogItems) {
 		this.contractActivityLogItems = contractActivityLogItems;
 	}
 

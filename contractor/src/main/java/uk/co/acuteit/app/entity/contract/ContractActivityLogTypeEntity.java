@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class ContractActivityType implements Serializable {
+public class ContractActivityLogTypeEntity implements Serializable {
 	
 	private static final long serialVersionUID = -8712872385957386182L;
 	

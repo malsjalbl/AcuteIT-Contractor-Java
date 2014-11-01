@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import uk.co.acuteit.app.entity.company.Company;
-import uk.co.acuteit.app.entity.contract.ContractActivityType;
+import uk.co.acuteit.app.entity.contract.ContractActivityLogTypeEntity;
 import uk.co.acuteit.app.service.interfaces.core.IContractActivityType;
 
 @Controller
@@ -27,34 +27,34 @@ public class ContractActivityTypeController {
 	private IContractActivityType contractActivityTypeService;
 	
 	@RequestMapping(value = "/contract_activity_types", method = RequestMethod.GET)
-	   public @ResponseBody List<ContractActivityType> findAll() {
+	   public @ResponseBody List<ContractActivityLogTypeEntity> findAll() {
 			
 			return contractActivityTypeService.findAll();
 	  }
 	
 	
 	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET) 
-	public @ResponseBody Page<ContractActivityType> getPage(@PathVariable("page") int pageNumber) {
+	public @ResponseBody Page<ContractActivityLogTypeEntity> getPage(@PathVariable("page") int pageNumber) {
 
 		return contractActivityTypeService.getPage(pageNumber);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST) 
-	public @ResponseBody ContractActivityType saveContractActivityType(@RequestBody ContractActivityType contractActivityType, @PathVariable("id") Long id) {
+	public @ResponseBody ContractActivityLogTypeEntity saveContractActivityType(@RequestBody ContractActivityLogTypeEntity contractActivityType, @PathVariable("id") Long id) {
 		
 		return contractActivityTypeService.save(contractActivityType);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET) 
-	public @ResponseBody ContractActivityType getContractActivityType(@PathVariable("id") Long id) {
+	public @ResponseBody ContractActivityLogTypeEntity getContractActivityType(@PathVariable("id") Long id) {
 		
 		return contractActivityTypeService.findById(id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) 
-	public @ResponseBody ContractActivityType deleteContractActivityType(@PathVariable("id") Long id) {
+	public @ResponseBody ContractActivityLogTypeEntity deleteContractActivityType(@PathVariable("id") Long id) {
 		
-		ContractActivityType contractActivityType = contractActivityTypeService.findById(id);
+		ContractActivityLogTypeEntity contractActivityType = contractActivityTypeService.findById(id);
 		contractActivityTypeService.delete(contractActivityType);
 		return contractActivityType;
 	}

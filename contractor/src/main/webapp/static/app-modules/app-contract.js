@@ -1,29 +1,43 @@
 
-var contractModule = angular.module('contract', ['ngResource',
-                                                  'ngRoute',
-                                                  'ngSanitize',
-                                                  'app',
-                                                  'core-data',
-                                                  'core-messaging',
-                                                  'core-view']);
+var contractModule = angular.module('app-contract', ['app-main',
+                                                     'common-data',
+                                                     'common-messaging',
+                                                     'common-view']);
+
+app-contract.value('MODULE_DISPLAY_NAME', 'Contract');
+app-contract.value('MODULE_HOME_URL', '#/contracts/page/1');
+
+app-contract.value('OPTION_DISPLAY_NAME_CONTRACTS', 'Contracts');
+app-contract.value('OPTION_HOME_URL_CONTRACTS', '#/contracts/page/1');
+
+app-contract.value('OPTION_DISPLAY_NAME_COMPANIES', 'Companies');
+app-contract.value('OPTION_HOME_URL_COMPANIES', '#/companies/page/1');
+
+app-contract.value('OPTION_DISPLAY_NAME_ACTIVITY_CODES', 'Activity Codes');
+app-contract.value('OPTION_HOME_URL_ACTIVITY_CODES', '#/contract_activity_types/page/1');
  
 contractModule.run(
 		
 		 function(appService, contractService, contractActivityTypeService) {
 			
 			 appService.registerModule({
-				
-				 displayName:	'Contract',
-				 homeUrl:		'#/contracts/page/1',
-				 views:			[{displayName: 'Contracts', homeUrl: '#/contracts/page/1'},
-				       			 {displayName: 'Companies', homeUrl: '#/companies/page/1'},
-				       			 {displayName: 'Activity Types', homeUrl: '#/contract_activity_types/page/1'}]
+				 
+				 displayName:	MODULE_DISPLAY_NAME,
+				 homeUrl:		MODULE_HOME_URL,
+				 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS},
+				       			 {displayName: OPTION_DISPLAY_NAME_COMPANIES, homeUrl: OPTION_HOME_URL_COMPANIES},
+				       			 {displayName: OPTION_DISPLAY_NAME_ACTIVITY_CODES, homeUrl: OPTION_HOME_URL_ACTIVITY_CODES}]
 			 });
 			 
 			 contractService.setOptionsOnListView([
 					
 				 {displayLabel: 'New Contract', url: '/contracts/0', isDisabled: false},
 			]);
+			 
+			 /*contractService.setOptionsOnListView([
+			                   					
+  				 {displayLabel: 'New Contract', url: '/contracts/0', isDisabled: false},
+  			]);*/
 			 
 			 contractActivityTypeService.setOptionsOnListView([
 			                   					
@@ -74,16 +88,23 @@ contractModule.config(
 // contractService factory
 contractModule.factory('contractService',
 	 
-	function(dataService, viewService, messagingService, $resource) {
+	function(dataService, viewService, messagingService) {
 	
 		var CLASS_NAME = 'Contract';
 		var optionsOnListView = [];
-		var EntityResource = $resource('/mileage/contracts/:id', {id:'@id'},
+		/*var EntityResource = $resource(
 				
-								{getPage: {method:'GET',
-								 url: '/mileage/contracts/page/:page',
-								 isArray: false}
-		});
+								'/contractor/contracts/:id',
+								 {id:'@id'},
+								 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: false}}
+		);*/
+		
+		var EntityResource = dataService.getEntityResource(
+				
+				'/contractor/contracts/:id',
+				 {id:'@id'},
+				 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: false}}
+		);
 		
 		var factory = {};
 		
@@ -258,10 +279,10 @@ contractModule.factory('contractActivityTypeService',
 	
 	var CLASS_NAME = 'Contract Activity Type';
 	var optionsOnlistView = [];
-	var EntityResource = $resource('/mileage/contract_activity_types/:id', {id:'@id'},
+	var EntityResource = $resource('/contractor/contract_activity_types/:id', {id:'@id'},
 			
 							{getPage: {method:'GET',
-							 url: '/mileage/contract-activity-types/page/:page',
+							 url: '/contractor/contract-activity-types/page/:page',
 							 isArray: false}
 	});
 
@@ -408,7 +429,7 @@ contractModule.factory('locationService',
 	 
 	function($resource) {  
 	
-		var Location = $resource('/mileage/location/:id', {id: '@id'});
+		var Location = $resource('/contractor/location/:id', {id: '@id'});
 		var locations = null;
 		
 		var locationFactory = {};

@@ -1,18 +1,10 @@
-var app = angular.module('app', ['core-data',
-                                 'contract',
-                                 'core-messaging',
-                                 'mileage-vehicle',
-                                 'ui-helper',
-                                 'ui.bootstrap']);
-
-/*var app = angular.module('app', ['core-messaging',
-                                 'ui.bootstrap']);*/
+var app = angular.module('app-main', []);
 
 app.value('defaultModule', 0);
 
 app.run(
 		
-	 function(appService) {
+	/* function(appService) {
 		
 		appService.registerModule({
 			
@@ -38,7 +30,7 @@ app.run(
 			      			 {displayName: 'Locations', homeUrl: '#/locations'},
 			      			 {displayName: 'Journeys', homeUrl: '#/journeys'}]
 		});
-	}
+	}*/
 );
 
 app.controller('appController',
@@ -64,34 +56,36 @@ app.controller('appController',
 
 app.factory('appService',
 		
-	function($route, defaultModule) {
+	function(defaultModule) {
 	
 		var modules = [];
-		var factory = {};
+		var appFactory = {};
 		
-		factory.registerModule = function(module) {
+		appFactory.registerModule = function(module) {
 			
 			modules.push({displayName: module.displayName,
 						  homeUrl: module.homeUrl,
 						  views: module.views});
+			
 		};
 		
-		factory.getDefaultModule = function() {
+		appFactory.getDefaultModule = function() {
 			
 			return defaultModule;
 		};
 		
-		factory.getModules = function() {
+		appFactory.getModules = function() {
 			
 			return modules;
 		};
 		
-		factory.getModuleViews = function(activeModule) {
+		appFactory.getModuleViews = function(activeModule) {
 			
+			alert(modules);
 			return modules[activeModule].views;
 		};
 		
-		return factory;
+		return appFactory;
 	
 	}
 );

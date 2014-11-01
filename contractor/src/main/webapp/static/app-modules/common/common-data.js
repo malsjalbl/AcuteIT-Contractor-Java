@@ -1,8 +1,8 @@
 
-var dataModule = angular.module('core-data', ['ngResource']);
+var dataModule = angular.module('common-data', ['ngResource']);
  
-/*DATA SERVICE*
- **************/
+/* GENERIC DATA SERVICE*
+ ***********************/
 
 dataModule.factory('dataService', 
 	 
@@ -12,8 +12,8 @@ dataModule.factory('dataService',
 		
 		var dataFactory = {};
 		
-		dataFactory.getEntityResource = function(resourceUrl, resourceIdObject) {
-			return $resource(resourceUrl, resourceIdObject);
+		dataFactory.getEntityResource = function(resourceUrl, resourceId, customActions) {
+			return $resource(resourceUrl, resourceId, customActions);
 		};
 
 		dataFactory.getAllEntities = function(entityResource) {

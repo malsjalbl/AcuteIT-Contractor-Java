@@ -1,5 +1,5 @@
 
-var dataModule = angular.module('core-view', []);
+var dataModule = angular.module('common-view', []);
  
 /*MESSAGING SERVICE*
  *******************/

@@ -1,5 +1,5 @@
 
-var coreModule = angular.module('ui-helper', ['ui.bootstrap']);
+var coreModule = angular.module('common-ui', ['ui.bootstrap']);
  
 coreModule.factory('uiService',
 	 

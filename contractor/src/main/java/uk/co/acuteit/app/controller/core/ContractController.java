@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import uk.co.acuteit.app.entity.contract.Contract;
+import uk.co.acuteit.app.entity.contract.ContractEntity;
 import uk.co.acuteit.app.service.interfaces.core.IContractServiceBasic;
 
 @Controller
@@ -24,27 +24,27 @@ public class ContractController {
 	private IContractServiceBasic contractService;
 	
 	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET) 
-	public @ResponseBody Page<Contract> getPage(@PathVariable("page") int pageNumber) {
+	public @ResponseBody Page<ContractEntity> getPage(@PathVariable("page") int pageNumber) {
 
 		return contractService.getPage(pageNumber);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST) 
-	public @ResponseBody Contract saveContract(@RequestBody Contract contract, @PathVariable("id") Long id) {
+	public @ResponseBody ContractEntity saveContract(@RequestBody ContractEntity contract, @PathVariable("id") Long id) {
 		
 		return contractService.save(contract);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET) 
-	public @ResponseBody Contract getContract(@PathVariable("id") Long id) {
+	public @ResponseBody ContractEntity getContract(@PathVariable("id") Long id) {
 		
 		return contractService.findById(id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) 
-	public @ResponseBody Contract deleteContract(@PathVariable("id") Long id) {
+	public @ResponseBody ContractEntity deleteContract(@PathVariable("id") Long id) {
 		
-		Contract contract = contractService.findById(id);
+		ContractEntity contract = contractService.findById(id);
 		contractService.delete(contract);
 		return contract;
 	}

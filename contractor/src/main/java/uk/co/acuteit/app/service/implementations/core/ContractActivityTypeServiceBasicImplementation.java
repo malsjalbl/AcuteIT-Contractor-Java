@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import uk.co.acuteit.app.entity.contract.ContractActivityType;
+import uk.co.acuteit.app.entity.contract.ContractActivityLogTypeEntity;
 import uk.co.acuteit.app.repository.core.IContractStatusRepository;
 import uk.co.acuteit.app.service.interfaces.core.IContractActivityType;
 
@@ -21,27 +21,27 @@ public class ContractActivityTypeServiceBasicImplementation implements IContract
 	private IContractStatusRepository repository;
 	
 	@Override
-	public void delete(ContractActivityType contractStatus) {
+	public void delete(ContractActivityLogTypeEntity contractStatus) {
 		repository.delete(contractStatus);
 	}
 
 	@Override
-	public ContractActivityType save(ContractActivityType contractStatus) {
+	public ContractActivityLogTypeEntity save(ContractActivityLogTypeEntity contractStatus) {
 		return repository.save(contractStatus);
 	}
 
 	@Override
-	public ContractActivityType findById(Long id) {
+	public ContractActivityLogTypeEntity findById(Long id) {
 		return repository.findOne(id);
 	}
 
 	@Override
-	public List<ContractActivityType> findAll() {
+	public List<ContractActivityLogTypeEntity> findAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	public Page<ContractActivityType> getPage(int pageNumber) {
+	public Page<ContractActivityLogTypeEntity> getPage(int pageNumber) {
 		PageRequest pageRequest = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "symbol");
 	        return repository.findAll(pageRequest);
 	}

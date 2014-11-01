@@ -14,14 +14,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class ContractActivityLogItem implements Serializable  {
+public class ContractActivityLogItemEntity implements Serializable  {
 	
 	private static final long serialVersionUID = -8712872385957386182L;
 	
 	private int id;
 	private Date logDate;
 	private Date activityDate;
-	private ContractActivityType activityType;
+	private ContractActivityLogTypeEntity activityType;
 	private String comment;
 	
 	// ID - Primary Key
@@ -57,11 +57,11 @@ public class ContractActivityLogItem implements Serializable  {
 	}
 	
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	public ContractActivityType getActivityType() {
+	public ContractActivityLogTypeEntity getActivityType() {
 		return this.activityType;
 	}
 
-	public void setActivityType(ContractActivityType activityType) {
+	public void setActivityType(ContractActivityLogTypeEntity activityType) {
 		this.activityType = activityType;
 	}
 
