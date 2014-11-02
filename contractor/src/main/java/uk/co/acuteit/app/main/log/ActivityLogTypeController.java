@@ -14,44 +14,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/contract_activity_types")
+@RequestMapping("/activity_log_types")
 public class ActivityLogTypeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ActivityLogTypeController.class);
 	
 	@Autowired
-	private ActivityLogTypeService contractActivityTypeService;
+	private ActivityLogTypeService activityLogTypeService;
 	
-	@RequestMapping(value = "/contract_activity_types", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	   public @ResponseBody List<ActivityLogType> findAll() {
 			
-			return contractActivityTypeService.findAll();
+			return activityLogTypeService.findAll();
 	  }
 	
 	
 	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET) 
 	public @ResponseBody Page<ActivityLogType> getPage(@PathVariable("page") int pageNumber) {
 
-		return contractActivityTypeService.getPage(pageNumber);
+		return activityLogTypeService.getPage(pageNumber);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST) 
-	public @ResponseBody ActivityLogType saveContractActivityType(@RequestBody ActivityLogType contractActivityType, @PathVariable("id") Long id) {
+	public @ResponseBody ActivityLogType saveActivityType(@RequestBody ActivityLogType activityType, @PathVariable("id") Long id) {
 		
-		return contractActivityTypeService.save(contractActivityType);
+		return activityLogTypeService.save(activityType);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET) 
-	public @ResponseBody ActivityLogType getContractActivityType(@PathVariable("id") Long id) {
+	public @ResponseBody ActivityLogType getActivityType(@PathVariable("id") Long id) {
 		
-		return contractActivityTypeService.findById(id);
+		return activityLogTypeService.findById(id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) 
-	public @ResponseBody ActivityLogType deleteContractActivityType(@PathVariable("id") Long id) {
+	public @ResponseBody ActivityLogType deleteActivityType(@PathVariable("id") Long id) {
 		
-		ActivityLogType contractActivityType = contractActivityTypeService.findById(id);
-		contractActivityTypeService.delete(contractActivityType);
-		return contractActivityType;
+		ActivityLogType activityType = activityLogTypeService.findById(id);
+		activityLogTypeService.delete(activityType);
+		return activityType;
 	}
 }

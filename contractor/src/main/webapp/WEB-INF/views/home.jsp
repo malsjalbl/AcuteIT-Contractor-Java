@@ -83,13 +83,13 @@
 	<!-- Sub menu area -->
 	<!-- ************* -->
 	
-	<div class="container">
+	<!-- <div class="container">
 		<ul class="nav nav-pills">
 			<li data-ng-repeat="view in activeModuleViews" ng-class="selectActiveNavPillItem(0, $index)">
 				<a data-ng-href="{{view.homeUrl}}">{{view.displayName}}</a>
 			</li>
 		</ul>
-	</div>
+	</div> -->
 
 	<!-- Message notification area -->
 	<!-- ************************* -->

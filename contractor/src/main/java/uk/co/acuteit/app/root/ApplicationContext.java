@@ -49,7 +49,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
  */
 
 @Configuration
-@ComponentScan(basePackages = {"uk.co.acuteit.app.controller"})
+@ComponentScan(basePackages = {"uk.co.acuteit.app"})
 @EnableWebMvc
 @ImportResource("classpath:applicationContext.xml")
 @PropertySource("classpath:application.properties")
@@ -166,7 +166,7 @@ public class ApplicationContext {
     }
     
     @Bean
-    public ActivityLogTypeService contractStatusService() {
+    public ActivityLogTypeService activityLogTypeService() {
     	return new ActivityLogTypeServiceImpl();
     }
 

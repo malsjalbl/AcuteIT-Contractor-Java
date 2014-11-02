@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "activity-log")
+@Table(name = "activity_log")
 public class ActivityLogItem implements Serializable  {
 	
 	private static final long serialVersionUID = -8712872385957386182L;
