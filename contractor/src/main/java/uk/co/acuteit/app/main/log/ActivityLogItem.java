@@ -10,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "activity-log")
 public class ActivityLogItem implements Serializable  {
 	
 	private static final long serialVersionUID = -8712872385957386182L;
@@ -22,7 +24,7 @@ public class ActivityLogItem implements Serializable  {
 	private Date logDate;
 	private Date activityDate;
 	private ActivityLogType activityType;
-	private String comment;
+	private String logEntry;
 	
 	// ID - Primary Key
 	// ----------------
@@ -65,12 +67,11 @@ public class ActivityLogItem implements Serializable  {
 		this.activityType = activityType;
 	}
 
-	public String getComment() {
-		return this.comment;
+	public String getLogEntry() {
+		return this.logEntry;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setLogEntry(String logEntry) {
+		this.logEntry = logEntry;
 	}
-
 }

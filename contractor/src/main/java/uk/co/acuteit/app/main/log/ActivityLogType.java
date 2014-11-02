@@ -14,7 +14,7 @@ public class ActivityLogType implements Serializable {
 	
 	private static final long serialVersionUID = -8712872385957386182L;
 	
-	private Long id; 
+	private Long id;
 	private String symbol;
 	private String description;
 	

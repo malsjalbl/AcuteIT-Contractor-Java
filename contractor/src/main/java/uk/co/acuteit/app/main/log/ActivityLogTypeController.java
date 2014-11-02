@@ -20,7 +20,7 @@ public class ActivityLogTypeController {
 	private static final Logger logger = LoggerFactory.getLogger(ActivityLogTypeController.class);
 	
 	@Autowired
-	private ActivityLogTypeRepository contractActivityTypeService;
+	private ActivityLogTypeService contractActivityTypeService;
 	
 	@RequestMapping(value = "/contract_activity_types", method = RequestMethod.GET)
 	   public @ResponseBody List<ActivityLogType> findAll() {

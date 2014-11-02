@@ -28,5 +28,5 @@
     <!--
         Configures Spring Data JPA and sets the base package of my DAOs.
     -->
-    <jpa:repositories base-package="uk.co.acuteit.app.repository"/>
+    <jpa:repositories base-package="uk.co.acuteit.app"/>
 </beans>

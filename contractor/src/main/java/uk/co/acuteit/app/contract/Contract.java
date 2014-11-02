@@ -1,4 +1,4 @@
-package uk.co.acuteit.app.contract.entities;
+package uk.co.acuteit.app.contract;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 import uk.co.acuteit.app.main.log.ActivityLogItem;
 
 @Entity
-public class ContractEntity implements Serializable {
+public class Contract implements Serializable {
 	
 	private static final long serialVersionUID = -8712872385957386182L;
 	
@@ -66,10 +66,10 @@ public class ContractEntity implements Serializable {
 		this.description = description;
 	}
 	
-	// Contract activity |Logs
-	// -----------------------
+	// Contract activity logs
+	// ----------------------
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
-	@JoinTable(name = "lnk_contract_action_log")
+	@JoinTable(name = "lnk_activity_log")
 	public List<ActivityLogItem> getContractActivityLogItems() {
 		return this.contractActivityLogItems;
 	}
@@ -81,7 +81,7 @@ public class ContractEntity implements Serializable {
 	// Agreed contract start date
 	// --------------------------
 	@Temporal(TemporalType.DATE)
-	//@Column(nullable = false)
+	@Column(nullable = false)
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -93,7 +93,7 @@ public class ContractEntity implements Serializable {
 	// Agreed contract end date
 	// ------------------------
 	@Temporal(TemporalType.DATE)
-	//@Column(nullable = false)
+	@Column(nullable = false)
 	public Date getEndDate() {
 		return endDate;
 	}

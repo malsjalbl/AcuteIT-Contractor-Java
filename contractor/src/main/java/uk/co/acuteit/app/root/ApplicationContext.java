@@ -21,10 +21,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import uk.co.acuteit.app.contract.services.ContractServiceBasicImplementation;
-import uk.co.acuteit.app.contract.services.IContractServiceBasic;
-import uk.co.acuteit.app.main.log.ActivityLogTypeRepository;
-import uk.co.acuteit.app.main.log.ActivityLogTypeServiceBasicImpl;
+import uk.co.acuteit.app.contract.ContractService;
+import uk.co.acuteit.app.contract.ContractServiceImpl;
+import uk.co.acuteit.app.main.log.ActivityLogTypeService;
+import uk.co.acuteit.app.main.log.ActivityLogTypeServiceImpl;
 import uk.co.acuteit.app.main.services.CompanyServiceBasicImpl;
 import uk.co.acuteit.app.main.services.ILocationServiceBasic;
 import uk.co.acuteit.app.main.services.LocationServiceBasicImpl;
@@ -141,8 +141,8 @@ public class ApplicationContext {
     }
     
     @Bean
-    public IContractServiceBasic contractService() {
-    	return new ContractServiceBasicImplementation();
+    public ContractService contractService() {
+    	return new ContractServiceImpl();
     }
     
     @Bean
@@ -166,8 +166,8 @@ public class ApplicationContext {
     }
     
     @Bean
-    public ActivityLogTypeRepository contractStatusService() {
-    	return new ActivityLogTypeServiceBasicImpl();
+    public ActivityLogTypeService contractStatusService() {
+    	return new ActivityLogTypeServiceImpl();
     }
 
     @Bean

@@ -1,4 +1,4 @@
-package uk.co.acuteit.app.contract.controllers;
+package uk.co.acuteit.app.contract;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import uk.co.acuteit.app.contract.entities.ContractEntity;
-import uk.co.acuteit.app.contract.services.IContractServiceBasic;
-
 @Controller
 @RequestMapping("/contracts")
 public class ContractController {
@@ -21,30 +18,30 @@ public class ContractController {
 	private static final Logger logger = LoggerFactory.getLogger(ContractController.class);
 	
 	@Autowired
-	private IContractServiceBasic contractService;
+	private ContractService contractService;
 	
 	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET) 
-	public @ResponseBody Page<ContractEntity> getPage(@PathVariable("page") int pageNumber) {
+	public @ResponseBody Page<Contract> getPage(@PathVariable("page") int pageNumber) {
 
 		return contractService.getPage(pageNumber);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST) 
-	public @ResponseBody ContractEntity saveContract(@RequestBody ContractEntity contract, @PathVariable("id") Long id) {
+	public @ResponseBody Contract saveContract(@RequestBody Contract contract, @PathVariable("id") Long id) {
 		
 		return contractService.save(contract);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET) 
-	public @ResponseBody ContractEntity getContract(@PathVariable("id") Long id) {
+	public @ResponseBody Contract getContract(@PathVariable("id") Long id) {
 		
 		return contractService.findById(id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) 
-	public @ResponseBody ContractEntity deleteContract(@PathVariable("id") Long id) {
+	public @ResponseBody Contract deleteContract(@PathVariable("id") Long id) {
 		
-		ContractEntity contract = contractService.findById(id);
+		Contract contract = contractService.findById(id);
 		contractService.delete(contract);
 		return contract;
 	}

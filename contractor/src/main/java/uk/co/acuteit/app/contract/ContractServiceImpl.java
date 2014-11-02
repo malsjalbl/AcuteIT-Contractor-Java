@@ -1,4 +1,4 @@
-package uk.co.acuteit.app.main.log;
+package uk.co.acuteit.app.contract;
 
 import java.util.List;
 
@@ -9,37 +9,36 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ActivityLogTypeServiceBasicImpl implements ActivityLogTypeRepository {
+public class ContractServiceImpl implements ContractService {
 
 	private static final int PAGE_SIZE = 5;
 	
 	@Autowired
-	private ActivityTypeRepository repository;
+	private ContractRepository repository;
 	
 	@Override
-	public void delete(ActivityLogType contractStatus) {
-		repository.delete(contractStatus);
+	public void delete(Contract contract) {
+		repository.delete(contract);
 	}
 
 	@Override
-	public ActivityLogType save(ActivityLogType contractStatus) {
-		return repository.save(contractStatus);
+	public Contract save(Contract contract) {
+		return repository.save(contract);
 	}
 
 	@Override
-	public ActivityLogType findById(Long id) {
+	public Contract findById(Long id) {
 		return repository.findOne(id);
 	}
 
 	@Override
-	public List<ActivityLogType> findAll() {
+	public List<Contract> findAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	public Page<ActivityLogType> getPage(int pageNumber) {
+	public Page<Contract> getPage(int pageNumber) {
 		PageRequest pageRequest = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "symbol");
 	        return repository.findAll(pageRequest);
 	}
 }
-

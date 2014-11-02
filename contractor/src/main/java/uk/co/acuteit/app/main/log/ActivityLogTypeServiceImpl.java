@@ -1,4 +1,4 @@
-package uk.co.acuteit.app.contract.services;
+package uk.co.acuteit.app.main.log;
 
 import java.util.List;
 
@@ -8,39 +8,38 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import uk.co.acuteit.app.contract.entities.ContractEntity;
-
 @Service
-public class ContractServiceBasicImplementation implements IContractServiceBasic {
+public class ActivityLogTypeServiceImpl implements ActivityLogTypeService {
 
 	private static final int PAGE_SIZE = 5;
 	
 	@Autowired
-	private IContractRepository repository;
+	private ActivityLogTypeRepository repository;
 	
 	@Override
-	public void delete(ContractEntity contract) {
-		repository.delete(contract);
+	public void delete(ActivityLogType contractStatus) {
+		repository.delete(contractStatus);
 	}
 
 	@Override
-	public ContractEntity save(ContractEntity contract) {
-		return repository.save(contract);
+	public ActivityLogType save(ActivityLogType contractStatus) {
+		return repository.save(contractStatus);
 	}
 
 	@Override
-	public ContractEntity findById(Long id) {
+	public ActivityLogType findById(Long id) {
 		return repository.findOne(id);
 	}
 
 	@Override
-	public List<ContractEntity> findAll() {
+	public List<ActivityLogType> findAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	public Page<ContractEntity> getPage(int pageNumber) {
+	public Page<ActivityLogType> getPage(int pageNumber) {
 		PageRequest pageRequest = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "symbol");
 	        return repository.findAll(pageRequest);
 	}
 }
+
