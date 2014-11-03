@@ -21,20 +21,20 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import uk.co.acuteit.app.service.implementations.core.CompanyServiceBasicImpl;
-import uk.co.acuteit.app.service.implementations.core.ContractServiceBasicImplementation;
-import uk.co.acuteit.app.service.implementations.core.ContractActivityTypeServiceBasicImplementation;
-import uk.co.acuteit.app.service.implementations.core.LocationServiceBasicImpl;
-import uk.co.acuteit.app.service.implementations.core.TaxYearServiceBasicImpl;
-import uk.co.acuteit.app.service.implementations.mileage.MileageItemServiceBasicImpl;
-import uk.co.acuteit.app.service.implementations.mileage.VehicleServiceBasicImpl;
-import uk.co.acuteit.app.service.interfaces.core.ICompanyServiceBasic;
-import uk.co.acuteit.app.service.interfaces.core.IContractServiceBasic;
-import uk.co.acuteit.app.service.interfaces.core.IContractActivityType;
-import uk.co.acuteit.app.service.interfaces.core.ILocationServiceBasic;
-import uk.co.acuteit.app.service.interfaces.core.ITaxYearServiceBasic;
-import uk.co.acuteit.app.service.interfaces.mileage.IMileageItemServiceBasic;
-import uk.co.acuteit.app.service.interfaces.mileage.IVehicleServiceBasic;
+import uk.co.acuteit.app.contract.ContractService;
+import uk.co.acuteit.app.contract.ContractServiceImpl;
+import uk.co.acuteit.app.main.log.ActivityLogTypeService;
+import uk.co.acuteit.app.main.log.ActivityLogTypeServiceImpl;
+import uk.co.acuteit.app.main.services.CompanyServiceBasicImpl;
+import uk.co.acuteit.app.main.services.ILocationServiceBasic;
+import uk.co.acuteit.app.main.services.LocationServiceBasicImpl;
+import uk.co.acuteit.app.mileage.services.ICompanyServiceBasic;
+import uk.co.acuteit.app.mileage.services.IMileageItemServiceBasic;
+import uk.co.acuteit.app.mileage.services.IVehicleServiceBasic;
+import uk.co.acuteit.app.mileage.services.MileageItemServiceBasicImpl;
+import uk.co.acuteit.app.mileage.services.VehicleServiceBasicImpl;
+import uk.co.acuteit.app.tax.services.ITaxYearServiceBasic;
+import uk.co.acuteit.app.tax.services.TaxYearServiceBasicImpl;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -49,7 +49,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
  */
 
 @Configuration
-@ComponentScan(basePackages = {"uk.co.acuteit.app.controller"})
+@ComponentScan(basePackages = {"uk.co.acuteit.app"})
 @EnableWebMvc
 @ImportResource("classpath:applicationContext.xml")
 @PropertySource("classpath:application.properties")
@@ -141,8 +141,8 @@ public class ApplicationContext {
     }
     
     @Bean
-    public IContractServiceBasic contractService() {
-    	return new ContractServiceBasicImplementation();
+    public ContractService contractService() {
+    	return new ContractServiceImpl();
     }
     
     @Bean
@@ -166,13 +166,12 @@ public class ApplicationContext {
     }
     
     @Bean
-    public IContractActivityType contractStatusService() {
-    	return new ContractActivityTypeServiceBasicImplementation();
+    public ActivityLogTypeService activityLogTypeService() {
+    	return new ActivityLogTypeServiceImpl();
     }
 
     @Bean
     public IVehicleServiceBasic vehicleService() {
     	return new VehicleServiceBasicImpl();
     }
-    
 }
