@@ -12,13 +12,6 @@ contractModule.run(
 			
 			 var MODULE_DISPLAY_NAME = 'Contracts';
 			 var MODULE_HOME_URL = '#/contracts/page/1';
-
-			 var OPTION_DISPLAY_NAME_CONTRACTS = 'Contracts';
-			 var OPTION_HOME_URL_CONTRACTS = '#/contracts/page/1';
-			 
-			 var OPTION_DISPLAY_NAME_ADD_NEW_CONTRACT = 'New Contract';
-			 var OPTION_URL_ADD_NEW_CONTRACT = '/contracts/0';
-			 
 			 
 			 mainService.registerModule({
 				 
@@ -26,13 +19,6 @@ contractModule.run(
 				 homeUrl:		MODULE_HOME_URL,
 				 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS}]
 			 });
-			 
-			 contractService.setOptionsOnListView([
-					
-				 {displayLabel: OPTION_DISPLAY_NAME_ADD_NEW_CONTRACT, url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false},
-				 {displayLabel: 'Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false},
-				 {displayLabel: 'Another Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false}
-			]);
 		}
 	);
 
@@ -163,12 +149,31 @@ contractModule.controller('contractListController',
 	
 		var INITIAL_PAGE = 1;
 		
-		$scope.optionsOnListView = contractService.getOptionsOnListView();
+		 var OPTION_CONTRACT_LIST_LABEL = 'Contracts';
+		 var OPTION_CONTRACT_LIST_URL = '#/contracts/page/1';
+		 
+		 var OPTION_NEW_CONTRACT_LABEL_NAME  = 'New Contract';
+		 var OPTION_NEW_CONTRACT_URL = '/contracts/0';
+		
+		$scope.optionsOnListView = [
+                   					
+		    {displayLabel: OPTION_CONTRACT_LIST_LABEL,
+		     isDisabled: false,
+		     action: viewService.setURL(OPTION_CONTRACT_LIST_URL)
+		    },
+		     
+		    {displayLabel: 'Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false},
+		    {displayLabel: 'Another Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false}
+		];
+
+		// $scope.optionsOnListView = contractService.getOptionsOnListView();
 		$scope.defaultContractAction = $scope.optionsOnListView[0];
 		
 		$scope.currentPageNumber = INITIAL_PAGE;
 		$scope.totalItems = 7;
 		$scope.itemsPerPage = 5;
+		
+		$scope.listViewActions
 		
 		$scope.currentPage = contractService.getPage($scope.currentPageNumber);
 

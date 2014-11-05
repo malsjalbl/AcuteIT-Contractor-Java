@@ -1,38 +1,33 @@
 
-var logModule = angular.module('logging', ['main',
-                                           'data',]);
+var logModule = angular.module('log', ['main',
+                                          'dbLogger',]);
 
-logModule.value('MODULE_DISPLAY_NAME', 'Activity Log');
-logModule.value('MODULE_HOME_URL', '#/activity_logs/page/1');
-
-logModule.value('OPTION_DISPLAY_NAME_ACTIVITY_LOG', 'Activity Log');
-logModule.value('OPTION_HOME_URL_ACTIVITY_LOG', '#/activity_log/page/1');
-
-logModule.value('OPTION_DISPLAY_NAME_ACTIVITY_LOG_TYPE', 'Activity Log');
-logModule.value('OPTION_HOME_URL_ACTIVITY_LOG_TYPE', '#/activity_log/page/1');
- 
 logModule.run(
 		
-	 function(mainService, contractService) {
-		
-		 mainService.registerModule({
-			 
-			 displayName:	MODULE_DISPLAY_NAME,
-			 homeUrl:		MODULE_HOME_URL,
-			 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS},
-			       			 {displayName: OPTION_DISPLAY_NAME_COMPANIES, homeUrl: OPTION_HOME_URL_COMPANIES},
-			       			 {displayName: OPTION_DISPLAY_NAME_ACTIVITY_CODES, homeUrl: OPTION_HOME_URL_ACTIVITY_CODES}]
-		 });
-		 
-		 contractService.setOptionsOnListView([
+		 function(mainService, logService) {
 				
-			 {displayLabel: 'New Contract', url: '/contracts/0', isDisabled: false},
-		]);
-		 
-		contractActivityTypeService.setOptionsOnListView([
-		                   					
-			{displayLabel: 'New Activity Type', url: '/contract-activity-types/0', isDisabled: false},
-		]);
+			 var MODULE_DISPLAY_NAME = 'Activity Log';
+			 var MODULE_HOME_URL = '#/activity_logs/page/1';
+			 
+			 mainService.registerModule({
+				 
+				 displayName:	MODULE_DISPLAY_NAME,
+				 homeUrl:		MODULE_HOME_URL,
+				 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS}]
+			 });
+			 
+			 var OPTION_DISPLAY_NAME_CONTRACTS = 'Activity Logs';
+			 var OPTION_HOME_URL_CONTRACTS = '#/contracts/page/1';
+			 
+			 var OPTION_DISPLAY_NAME_ADD_NEW_CONTRACT = 'Activity Types';
+			 var OPTION_URL_ADD_NEW_CONTRACT = '/activity_log_types/page/1';
+			 
+			 ActivityLogService.setOptionsOnListView([
+					
+				 {displayLabel: OPTION_DISPLAY_NAME_ADD_NEW_CONTRACT, url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false},
+				 {displayLabel: 'Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false},
+				 {displayLabel: 'Another Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false}
+			]);
 	}
 );
 

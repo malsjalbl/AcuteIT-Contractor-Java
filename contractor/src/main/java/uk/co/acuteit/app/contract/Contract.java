@@ -69,7 +69,7 @@ public class Contract implements Serializable {
 	// Contract activity logs
 	// ----------------------
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
-	@JoinTable(name = "lnk_activity_log")
+	@JoinTable(name = "lnk_contract_activity_log")
 	public List<ActivityLogItem> getContractActivityLogItems() {
 		return this.contractActivityLogItems;
 	}

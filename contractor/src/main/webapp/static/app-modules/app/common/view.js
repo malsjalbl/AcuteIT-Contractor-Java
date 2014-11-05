@@ -15,7 +15,7 @@ dataModule.factory('viewService',
 			$route.reload();
 		};
 		
-		factory.setViewUrl = function(url) {
+		factory.setUrl = function(url) {
 			
 			$location.path(url);
 		};
