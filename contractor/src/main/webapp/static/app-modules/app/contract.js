@@ -55,7 +55,26 @@ contractModule.factory('contractService',
 	function(dataService, viewService, messagingService) {
 	
 		var CLASS_NAME = 'Contract';
-		var optionsOnListView = [];
+		var listViewOptions = [];
+		
+		var OPTION_CONTRACT_LIST_LABEL = 'Contracts';
+		var OPTION_CONTRACT_LIST_URL = '#/contracts/page/1';
+		
+		var OPTION_NEW_CONTRACT_LABEL  = 'New Contract';
+		var OPTION_NEW_CONTRACT_URL = '/contracts/0';
+		
+		listViewOptions.push(
+				
+			{displayLabel: OPTION_LABEL_CONTRACT_LIST,
+		     isActive: false,
+		     action: function() {viewService.setURL(OPTION_LABEL_CONTRACT_LIST)}
+		    },
+		    
+		    {displayLabel:  OPTION_NEW_CONTRACT_LABEL,
+			 isActive: false,
+			 action: function() {viewService.setURL(OPTION_NEW_CONTRACT_URL)}
+		    }
+		)
 		
 		var EntityResource = dataService.getEntityResource(
 				
@@ -90,12 +109,12 @@ contractModule.factory('contractService',
         	 return dataService.getNewEntity(EntityResource);
         };
         
-        factory.getOptionsOnListView = function() {
-        	 return optionsOnListView;
+        factory.getListViewOptions = function() {
+        	 return listViewOptions;
         };
         
-        factory.setOptionsOnListView = function(options) {
-       	 	optionsOnListView = options;
+        factory.addListViewOptions = function(options) {
+        	listViewOptions.push = options;
        };
         
         factory.save = function(contract) {
@@ -149,22 +168,7 @@ contractModule.controller('contractListController',
 	
 		var INITIAL_PAGE = 1;
 		
-		 var OPTION_CONTRACT_LIST_LABEL = 'Contracts';
-		 var OPTION_CONTRACT_LIST_URL = '#/contracts/page/1';
-		 
-		 var OPTION_NEW_CONTRACT_LABEL_NAME  = 'New Contract';
-		 var OPTION_NEW_CONTRACT_URL = '/contracts/0';
-		
-		$scope.optionsOnListView = [
-                   					
-		    {displayLabel: OPTION_CONTRACT_LIST_LABEL,
-		     isDisabled: false,
-		     action: viewService.setURL(OPTION_CONTRACT_LIST_URL)
-		    },
-		     
-		    {displayLabel: 'Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false},
-		    {displayLabel: 'Another Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false}
-		];
+		$scope.listViewOptions = conractService.getListViewOptions();
 
 		// $scope.optionsOnListView = contractService.getOptionsOnListView();
 		$scope.defaultContractAction = $scope.optionsOnListView[0];
