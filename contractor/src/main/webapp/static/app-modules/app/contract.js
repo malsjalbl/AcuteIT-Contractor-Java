@@ -17,7 +17,7 @@ contractModule.run(
 				 
 				 displayName:	MODULE_DISPLAY_NAME,
 				 homeUrl:		MODULE_HOME_URL,
-				 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS}]
+				 //views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS}]
 			 });
 		}
 	);
