@@ -65,9 +65,9 @@ contractModule.factory('contractService',
 		
 		listViewOptions.push(
 				
-			{displayLabel: OPTION_LABEL_CONTRACT_LIST,
+			{displayLabel: OPTION_CONTRACT_LIST_LABEL,
 		     isActive: false,
-		     action: function() {viewService.setURL(OPTION_LABEL_CONTRACT_LIST)}
+		     action: function() {viewService.setURL(OPTION_CONTRACT_LIST_URL)}
 		    },
 		    
 		    {displayLabel:  OPTION_NEW_CONTRACT_LABEL,
