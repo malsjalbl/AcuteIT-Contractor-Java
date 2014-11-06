@@ -67,14 +67,14 @@ contractModule.factory('contractService',
 				
 			{displayLabel: OPTION_CONTRACT_LIST_LABEL,
 		     isActive: false,
-		     action: function() {viewService.setURL(OPTION_CONTRACT_LIST_URL)}
+		     action: function() {viewService.setURL(OPTION_CONTRACT_LIST_URL);}
 		    },
 		    
 		    {displayLabel:  OPTION_NEW_CONTRACT_LABEL,
 			 isActive: false,
-			 action: function() {viewService.setURL(OPTION_NEW_CONTRACT_URL)}
+			 action: function() {viewService.setURL(OPTION_NEW_CONTRACT_URL);}
 		    }
-		)
+		);
 		
 		var EntityResource = dataService.getEntityResource(
 				
@@ -168,10 +168,10 @@ contractModule.controller('contractListController',
 	
 		var INITIAL_PAGE = 1;
 		
-		$scope.listViewOptions = conractService.getListViewOptions();
+		$scope.listViewOptions = contractService.getListViewOptions();
 
 		// $scope.optionsOnListView = contractService.getOptionsOnListView();
-		$scope.defaultContractAction = $scope.optionsOnListView[0];
+		$scope.defaultContractAction = $scope.listViewOptions[0];
 		
 		$scope.currentPageNumber = INITIAL_PAGE;
 		$scope.totalItems = 7;
