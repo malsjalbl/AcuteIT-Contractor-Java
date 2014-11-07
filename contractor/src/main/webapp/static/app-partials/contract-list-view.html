@@ -5,7 +5,8 @@
 		<div>
 			<h3>Contract List
 				<div class="btn-group pull-right">
-					<a data-ng-repeat="option in listViewOptions" role="button" class="btn btn-default" href="{{option.url}}">{{option.displayLabel}}</a>
+					<button data-ng-repeat="option in listViewOptions" role="button" class="btn btn-default" data-ng-click="option.action()">{{option.displayLabel}}</button>
+					<!-- <a data-ng-repeat="option in listViewOptions" role="button" class="btn btn-default" href="{{option.url}}">{{option.displayLabel}}</a> -->
 				</div>
 			</h3>
 		</div>

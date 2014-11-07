@@ -57,7 +57,7 @@ contractModule.factory('contractService',
 		var CLASS_NAME = 'Contract';
 		var listViewOptions = [];
 		
-		var OPTION_CONTRACT_LIST_LABEL = 'Contracts';
+		var OPTION_CONTRACT_LIST_LABEL = 'Contract List';
 		var OPTION_CONTRACT_LIST_URL = '#/contracts/page/1';
 		
 		var OPTION_NEW_CONTRACT_LABEL  = 'New Contract';
@@ -67,12 +67,12 @@ contractModule.factory('contractService',
 				
 			{displayLabel: OPTION_CONTRACT_LIST_LABEL,
 		     isActive: false,
-		     action: function() {viewService.setURL(OPTION_CONTRACT_LIST_URL);}
+		     action: function () {viewService.setURL(OPTION_CONTRACT_LIST_URL);}
 		    },
 		    
 		    {displayLabel:  OPTION_NEW_CONTRACT_LABEL,
-			 isActive: false,
-			 action: function() {viewService.setURL(OPTION_NEW_CONTRACT_URL);}
+			 isActive: true,
+			 action: function() {viewService.setUrl(OPTION_NEW_CONTRACT_URL);}
 		    }
 		);
 		
