@@ -3,7 +3,7 @@ var contractModule = angular.module('contract', ['main',
                                                  'data',
                                                  'messaging',
                                                  'view',
-                                                 'ui',
+                                                 'dialog',
                                                  'ngRoute']);
 
 contractModule.run(
@@ -64,11 +64,6 @@ contractModule.factory('contractService',
 		var OPTION_NEW_CONTRACT_URL = '/contracts/0';
 		
 		listViewOptions.push(
-				
-			{displayLabel: OPTION_CONTRACT_LIST_LABEL,
-		     isActive: false,
-		     action: function () {viewService.setURL(OPTION_CONTRACT_LIST_URL);}
-		    },
 		    
 		    {displayLabel:  OPTION_NEW_CONTRACT_LABEL,
 			 isActive: true,
@@ -83,41 +78,49 @@ contractModule.factory('contractService',
 				 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: false}}
 		);
 		
-		var factory = {};
-		
 		EntityResource.prototype.toString = function contractToString() {
 			return this.symbol;
 		};
 		
-		EntityResource.prototype.className = function contractClassEntityName() {
+		/*EntityResource.prototype.className = function contractClassEntityName() {
 			return CLASS_NAME;
-		};                    		
+		};*/
 		
-		factory.getAll = function() {
+		EntityResource.prototype.className = CLASS_NAME;
+		
+		var contractFactory = {};
+		
+		contractFactory.getAll = function() {
         	return dataService.getAllEntities(EntityResource);
         };
         
-        factory.getPage = function(page) {
+        contractFactory.getPage = function(page) {
         	return dataService.getPage(EntityResource, page);
         };
         
-        factory.getById = function(id) {
+        contractFactory.getById = function(id) {
     		return dataService.getEntityById(EntityResource, id);
         };
         
-        factory.getNew = function() {
+        contractFactory.getNew = function() {
         	 return dataService.getNewEntity(EntityResource);
         };
         
-        factory.getListViewOptions = function() {
+        contractFactory.getListViewOptions = function() {
         	 return listViewOptions;
         };
         
-        factory.addListViewOptions = function(options) {
+        contractFactory.addListViewOptions = function(options) {
         	listViewOptions.push = options;
        };
         
-        factory.save = function(contract) {
+       contractFactory.popupAreYouSure = function(scope, title, content) {
+    	   
+    	   uiService.popup(scope, title, content);
+       };
+       
+       
+       contractFactory.save = function(contract) {
 			
 			dataService.saveEntity(contract,
 					
@@ -137,7 +140,11 @@ contractModule.factory('contractService',
 			);
 		};
 		
-		factory.del = function(contract) {
+		contractFactory.deleteContract = function() {
+			dataService.deleteEntityById(contract);
+		};
+		
+		contractFactory.del = function(contract) {
 			
 			dataService.deleteEntityById(contract,
 				
@@ -157,14 +164,14 @@ contractModule.factory('contractService',
 			);
 		};
 
-		return factory;
+		return contractFactory;
 	}
 );
 
 // contractListController
 contractModule.controller('contractListController',
 		
-	function($scope, contractService, uiService, viewService) {
+	function($scope, contractService, dialogService, viewService) {
 	
 		var INITIAL_PAGE = 1;
 		
@@ -188,7 +195,7 @@ contractModule.controller('contractListController',
 		    console.log('Page changed to: ' + $scope.currentPage.number);
 		  };
 
-		$scope.deleteContract = function(contract) {
+		/*$scope.deleteContract = function(contract) {
 			
 			var confirmDeleteCallback = function() {
 				contractService.del(contract);
@@ -199,7 +206,17 @@ contractModule.controller('contractListController',
 			};
 			
 			uiService.genericCrudDeleteConfirm(contract, confirmDeleteCallback, confirmCancelCallback);
-		};
+		};*/
+		  
+		  $scope.popupAreYouSure = function(contract) {
+			  
+			  di = dialogService.confirm(' A Title', 'Are you sure?');
+		  };
+		  
+		  $scope.deleteContract = function(contract) {
+			  alert('hi');
+			  contractService.del(contract);
+		  };
 	}
 );
 

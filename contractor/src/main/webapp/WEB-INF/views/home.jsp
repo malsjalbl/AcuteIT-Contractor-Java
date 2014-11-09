@@ -10,11 +10,12 @@
     <script src="static/angularJS/angular.js"></script>
     <script src="static/angularJS/angular-resource.js"></script>
     <script src="static/angularJS/angular-route.js"></script>
+    <script src="static/angularJS/angular-animate.js"></script>
     <script src="static/angular-strap/angular-strap.js"></script>
     <script src="static/angular-strap/angular-strap.tpl.js"></script>
-    <script src="static/ui-bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+    <script src="static/angular-ui-bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
     <script src="static/app-modules/app/common/data.js"></script>
-    <script src="static/app-modules/app/common/ui.js"></script>
+    <script src="static/dialog/dialog.js"></script>
     <script src="static/app-modules/app/common/view.js"></script>
 	<script src="static/app-modules/app/common/messaging.js"></script>
     <script src="static/app-modules/app/contract.js"></script>

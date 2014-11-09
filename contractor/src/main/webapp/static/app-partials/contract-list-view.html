@@ -14,31 +14,15 @@
 </div>
 
 </br>
-
-	<!-- <div class="well well-small">
-		<p class="lead">Filter:</p>
-		<table>
-			<tr>
-				<td>
-					<label>Contract</label>
-					<input type="text" data-ng-model="symbolFilter">
-				</td>
-				<td>
-					<label>Description</label>
-					<input type="text" data-ng-model="descriptionFilter">
-				</td>
-			</tr>
-		</table>
-	</div> -->
 	
-	<x-ait-list rows="listOptions.page.content" on-delete="deleteContract(entity)">
-	    <column title='ID'><span class="muted">{{row.id}}</span></column>
+	<data-my-list rows="listOptions.page.content" on-delete="popupAreYouSure(entity)">
+	    //<column title='ID'><span class="muted">{{row.id}}</span></column>
 	    <column title="Contract Name"><a data-ng-href="#/contracts/{{row.id}}">{{row.symbol}}</a></column>
-	    <column title='Description'>{{row.description}}</column>
-	    <column title='Start Date'>{{row.startDate}}</column>
-	    <column title='End Date'>{{row.endDate}}</column>
+	    <column title='Description'><span class="muted">{{row.description}}</span></column>
+	    <!--<column title='Start Date'>{{row.startDate}}</column>
+	    <column title='End Date'>{{row.endDate}}</column> -->
 	    <column title=""><button class="btn btn-mini pull-right" data-tooltip="Delete {{row.symbol}}" data-ng-click="deleteRow({entity: row})"><span class="glyphicon glyphicon-remove-sign"></span></button></column>
-	</x-ait-list>
+	</data-my-list>
 	
 	Total Items: {{totalItems}}
 	Items per Page: {{itemsPerPage}}

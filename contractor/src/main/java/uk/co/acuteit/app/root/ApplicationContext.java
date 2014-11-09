@@ -21,20 +21,20 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import uk.co.acuteit.app.common.company.CompanyServiceImpl;
+import uk.co.acuteit.app.common.company.CompanyService;
+import uk.co.acuteit.app.common.location.ILocationServiceBasic;
+import uk.co.acuteit.app.common.location.LocationServiceBasicImpl;
+import uk.co.acuteit.app.common.log.ActivityLogTypeService;
+import uk.co.acuteit.app.common.log.ActivityLogTypeServiceImpl;
 import uk.co.acuteit.app.contract.ContractService;
 import uk.co.acuteit.app.contract.ContractServiceImpl;
-import uk.co.acuteit.app.main.log.ActivityLogTypeService;
-import uk.co.acuteit.app.main.log.ActivityLogTypeServiceImpl;
-import uk.co.acuteit.app.main.services.CompanyServiceBasicImpl;
-import uk.co.acuteit.app.main.services.ILocationServiceBasic;
-import uk.co.acuteit.app.main.services.LocationServiceBasicImpl;
-import uk.co.acuteit.app.mileage.services.ICompanyServiceBasic;
-import uk.co.acuteit.app.mileage.services.IMileageItemServiceBasic;
-import uk.co.acuteit.app.mileage.services.IVehicleServiceBasic;
-import uk.co.acuteit.app.mileage.services.MileageItemServiceBasicImpl;
-import uk.co.acuteit.app.mileage.services.VehicleServiceBasicImpl;
-import uk.co.acuteit.app.tax.services.ITaxYearServiceBasic;
-import uk.co.acuteit.app.tax.services.TaxYearServiceBasicImpl;
+import uk.co.acuteit.app.mileage.IMileageItemServiceBasic;
+import uk.co.acuteit.app.mileage.IVehicleServiceBasic;
+import uk.co.acuteit.app.mileage.MileageItemServiceBasicImpl;
+import uk.co.acuteit.app.mileage.VehicleServiceBasicImpl;
+import uk.co.acuteit.app.tax.ITaxYearServiceBasic;
+import uk.co.acuteit.app.tax.TaxYearServiceBasicImpl;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -161,8 +161,8 @@ public class ApplicationContext {
     }
     
     @Bean
-    public ICompanyServiceBasic companyService() {
-    	return new CompanyServiceBasicImpl();
+    public CompanyService companyService() {
+    	return new CompanyServiceImpl();
     }
     
     @Bean
