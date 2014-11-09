@@ -1,5 +1,5 @@
 
-var dialogModule = angular.module('dialog', ['ui.bootstrap.modal']);
+var dialogModule = angular.module('dialog', ['ui.bootstrap']);
  
 dialogModule.factory('dialogService',
 	 
@@ -21,7 +21,7 @@ dialogModule.factory('dialogService',
 			return $modal.open({
 				templateUrl: 'static/dialog/dialog-confirm.html',
 				controller: 'ConfirmDialogCtrl',
-				backdrop: 'static',
+				//backdrop: 'static',
 				resolve: {
 					title: function () {
 						return angular.copy(title);
