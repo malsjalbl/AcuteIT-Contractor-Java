@@ -45,15 +45,14 @@ dialogModule.controller('ConfirmDialogCtrl',
 		 $scope.title = (angular.isDefined(title)) ? title : 'Confirmation';
 		 $scope.content = (angular.isDefined(content)) ? content : 'Confirmation required.';
 		  
-		 $scope.no = function () {
+		 $scope.cancel = function () {
 			 $modalInstance.dismiss('no');
 		 };
 		  
-		 $scope.yes = function () {
+		 $scope.close = function () {
 			 $modalInstance.close('yes');
 		 };
 	}
-		
 );
 
 

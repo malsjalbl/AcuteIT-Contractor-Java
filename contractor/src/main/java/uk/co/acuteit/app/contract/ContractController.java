@@ -1,5 +1,7 @@
 package uk.co.acuteit.app.contract;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,9 @@ public class ContractController {
 	private ContractService contractService;
 	
 	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET) 
-	public @ResponseBody Page<Contract> getPage(@PathVariable("page") int pageNumber) {
+	public @ResponseBody List<Contract> getPage(@PathVariable("page") int pageNumber) {
 
-		return contractService.getPage(pageNumber);
+		return contractService.getPage(pageNumber).getContent();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST) 

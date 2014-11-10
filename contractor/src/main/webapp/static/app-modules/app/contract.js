@@ -75,7 +75,7 @@ contractModule.factory('contractService',
 				
 				'/contractor/contracts/:id',
 				 {id:'@id'},
-				 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: false}}
+				 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: true}}
 		);
 		
 		EntityResource.prototype.toString = function contractToString() {
@@ -114,12 +114,6 @@ contractModule.factory('contractService',
         	listViewOptions.push = options;
        };
         
-       contractFactory.popupAreYouSure = function(scope, title, content) {
-    	   
-    	   uiService.popup(scope, title, content);
-       };
-       
-       
        contractFactory.save = function(contract) {
 			
 			dataService.saveEntity(contract,
@@ -144,7 +138,7 @@ contractModule.factory('contractService',
 			dataService.deleteEntityById(contract);
 		};
 		
-		contractFactory.del = function(contract) {
+		contractFactory.deleteById = function(contract) {
 			
 			dataService.deleteEntityById(contract,
 				
@@ -208,9 +202,17 @@ contractModule.controller('contractListController',
 		};*/
 		  
 		  $scope.popupAreYouSure = function(contract) {
-			  
-			  di = dialogService.confirm(' A Title', 'Are you sure?');
+			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure?');
+			  modalInstance.result.then(function (result) {
+				  alert(contract.id);
+				  contract.$delete({id: contract.id});
+				  contractService.deleteById(contract);
+			    }, function () {
+			      $log.info('Modal dismissed at: ' + new Date());
+			    });
 		  };
+		  
+		 
 		  
 		  $scope.deleteContract = function(contract) {
 			  alert('hi');
