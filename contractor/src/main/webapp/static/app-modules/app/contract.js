@@ -3,7 +3,7 @@ var contractModule = angular.module('contract', ['main',
                                                  'data',
                                                  'messaging',
                                                  'view',
-                                                 'ui',
+                                                 'dialog',
                                                  'ngRoute']);
 
 contractModule.run(
@@ -17,7 +17,7 @@ contractModule.run(
 				 
 				 displayName:	MODULE_DISPLAY_NAME,
 				 homeUrl:		MODULE_HOME_URL,
-				 views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS}]
+				 //views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS}]
 			 });
 		}
 	);
@@ -55,7 +55,21 @@ contractModule.factory('contractService',
 	function(dataService, viewService, messagingService) {
 	
 		var CLASS_NAME = 'Contract';
-		var optionsOnListView = [];
+		var listViewOptions = [];
+		
+		var OPTION_CONTRACT_LIST_LABEL = 'Contract List';
+		var OPTION_CONTRACT_LIST_URL = '#/contracts/page/1';
+		
+		var OPTION_NEW_CONTRACT_LABEL  = 'New Contract';
+		var OPTION_NEW_CONTRACT_URL = '/contracts/0';
+		
+		listViewOptions.push(
+		    
+		    {displayLabel:  OPTION_NEW_CONTRACT_LABEL,
+			 isActive: true,
+			 action: function() {viewService.setUrl(OPTION_NEW_CONTRACT_URL);}
+		    }
+		);
 		
 		var EntityResource = dataService.getEntityResource(
 				
@@ -64,41 +78,49 @@ contractModule.factory('contractService',
 				 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: false}}
 		);
 		
-		var factory = {};
-		
 		EntityResource.prototype.toString = function contractToString() {
 			return this.symbol;
 		};
 		
-		EntityResource.prototype.className = function contractClassEntityName() {
+		/*EntityResource.prototype.className = function contractClassEntityName() {
 			return CLASS_NAME;
-		};                    		
+		};*/
 		
-		factory.getAll = function() {
+		EntityResource.prototype.className = CLASS_NAME;
+		
+		var contractFactory = {};
+		
+		contractFactory.getAll = function() {
         	return dataService.getAllEntities(EntityResource);
         };
         
-        factory.getPage = function(page) {
+        contractFactory.getPage = function(page) {
         	return dataService.getPage(EntityResource, page);
         };
         
-        factory.getById = function(id) {
+        contractFactory.getById = function(id) {
     		return dataService.getEntityById(EntityResource, id);
         };
         
-        factory.getNew = function() {
+        contractFactory.getNew = function() {
         	 return dataService.getNewEntity(EntityResource);
         };
         
-        factory.getOptionsOnListView = function() {
-        	 return optionsOnListView;
+        contractFactory.getListViewOptions = function() {
+        	 return listViewOptions;
         };
         
-        factory.setOptionsOnListView = function(options) {
-       	 	optionsOnListView = options;
+        contractFactory.addListViewOptions = function(options) {
+        	listViewOptions.push = options;
        };
         
-        factory.save = function(contract) {
+       contractFactory.popupAreYouSure = function(scope, title, content) {
+    	   
+    	   uiService.popup(scope, title, content);
+       };
+       
+       
+       contractFactory.save = function(contract) {
 			
 			dataService.saveEntity(contract,
 					
@@ -118,7 +140,11 @@ contractModule.factory('contractService',
 			);
 		};
 		
-		factory.del = function(contract) {
+		contractFactory.deleteContract = function() {
+			dataService.deleteEntityById(contract);
+		};
+		
+		contractFactory.del = function(contract) {
 			
 			dataService.deleteEntityById(contract,
 				
@@ -138,43 +164,27 @@ contractModule.factory('contractService',
 			);
 		};
 
-		return factory;
+		return contractFactory;
 	}
 );
 
 // contractListController
 contractModule.controller('contractListController',
 		
-	function($scope, contractService, uiService, viewService) {
+	function($scope, contractService, dialogService, viewService) {
 	
 		var INITIAL_PAGE = 1;
 		
-		 var OPTION_CONTRACT_LIST_LABEL = 'Contracts';
-		 var OPTION_CONTRACT_LIST_URL = '#/contracts/page/1';
-		 
-		 var OPTION_NEW_CONTRACT_LABEL_NAME  = 'New Contract';
-		 var OPTION_NEW_CONTRACT_URL = '/contracts/0';
-		
-		$scope.optionsOnListView = [
-                   					
-		    {displayLabel: OPTION_CONTRACT_LIST_LABEL,
-		     isDisabled: false,
-		     action: viewService.setURL(OPTION_CONTRACT_LIST_URL)
-		    },
-		     
-		    {displayLabel: 'Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false},
-		    {displayLabel: 'Another Test', url: OPTION_URL_ADD_NEW_CONTRACT, isDisabled: false}
-		];
+		$scope.listViewOptions = contractService.getListViewOptions();
 
 		// $scope.optionsOnListView = contractService.getOptionsOnListView();
-		$scope.defaultContractAction = $scope.optionsOnListView[0];
+		$scope.defaultContractAction = $scope.listViewOptions[0];
 		
 		$scope.currentPageNumber = INITIAL_PAGE;
 		$scope.totalItems = 7;
 		$scope.itemsPerPage = 5;
 		
 		$scope.listViewActions
-		
 		$scope.currentPage = contractService.getPage($scope.currentPageNumber);
 
 		$scope.listOptions = {page: $scope.currentPage,
@@ -184,7 +194,7 @@ contractModule.controller('contractListController',
 		    console.log('Page changed to: ' + $scope.currentPage.number);
 		  };
 
-		$scope.deleteContract = function(contract) {
+		/*$scope.deleteContract = function(contract) {
 			
 			var confirmDeleteCallback = function() {
 				contractService.del(contract);
@@ -195,7 +205,17 @@ contractModule.controller('contractListController',
 			};
 			
 			uiService.genericCrudDeleteConfirm(contract, confirmDeleteCallback, confirmCancelCallback);
-		};
+		};*/
+		  
+		  $scope.popupAreYouSure = function(contract) {
+			  
+			  di = dialogService.confirm(' A Title', 'Are you sure?');
+		  };
+		  
+		  $scope.deleteContract = function(contract) {
+			  alert('hi');
+			  contractService.del(contract);
+		  };
 	}
 );
 

@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import uk.co.acuteit.app.main.log.ActivityLogItem;
+import uk.co.acuteit.app.common.log.ActivityLogItem;
 
 @Entity
 public class Contract implements Serializable {
@@ -27,8 +27,8 @@ public class Contract implements Serializable {
 	private Long id;
 	private String symbol;
 	private String description;
-	private Date startDate;
-	private Date endDate;
+	//private Date startDate;
+	//private Date endDate;
 	private List<ActivityLogItem> contractActivityLogItems;
 	
 	// ID - Primary Key
@@ -80,7 +80,7 @@ public class Contract implements Serializable {
 
 	// Agreed contract start date
 	// --------------------------
-	@Temporal(TemporalType.DATE)
+	/*@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	public Date getStartDate() {
 		return startDate;
@@ -88,11 +88,11 @@ public class Contract implements Serializable {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-	}
+	}*/
 
 	// Agreed contract end date
 	// ------------------------
-	@Temporal(TemporalType.DATE)
+	/*@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	public Date getEndDate() {
 		return endDate;
@@ -100,5 +100,5 @@ public class Contract implements Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
+	}*/
 }

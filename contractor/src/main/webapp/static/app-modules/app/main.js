@@ -1,4 +1,4 @@
-var mainModule = angular.module('main', ['contract']);
+var mainModule = angular.module('main', ['ngAnimate','contract']);
 
 mainModule.value('defaultModule', 0);
 
@@ -90,11 +90,10 @@ mainModule.factory('mainService',
 	}
 );
 
-mainModule.directive('aitList', function() {
+mainModule.directive('myList', function() {
 	  
 	return {
 	    restrict: 'E',
-	    //replace:true,
 	    scope: {
 	      rows: "=",
 	      deleteRow: "&onDelete"
@@ -114,6 +113,7 @@ mainModule.directive('aitList', function() {
 	                        '<tr ng-repeat="row in rows">'+ td +'</tr>' +
 	                      '</tbody>' +
 	                    '</table>';
+	      
 	      return template;
 	    }
 	  };

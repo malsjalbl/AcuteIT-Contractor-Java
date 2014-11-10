@@ -8,18 +8,18 @@ dataModule.factory('viewService',
 	 
 	function($route, $location) {
 	
-		var factory = {};
+		var viewServicefactory = {};
 		
-		factory.reloadCurrentView = function() {
+		viewServicefactory.reloadCurrentView = function() {
 			
 			$route.reload();
 		};
 		
-		factory.setUrl = function(url) {
+		viewServicefactory.setUrl = function(url) {
 			
 			$location.path(url);
 		};
 		
-		return factory;
+		return viewServicefactory;
 	}
 );
