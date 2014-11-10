@@ -178,7 +178,6 @@ contractModule.controller('contractListController',
 		$scope.itemsPerPage = 5;
 		
 		$scope.listViewActions
-		
 		$scope.currentPage = contractService.getPage($scope.currentPageNumber);
 
 		$scope.listOptions = {page: $scope.currentPage,
