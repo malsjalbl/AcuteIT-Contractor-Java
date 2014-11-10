@@ -1,15 +1,13 @@
-<div class="modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header" ng-show="title">
-				<button type="button" class="close" ng-click="$hide()">&times;</button>
-				<h4 class="modal-title" ng-bind="title"></h4>
-			</div>
-			<div class="modal-body" ng-bind="content"></div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" ng-click="scope.deleteContract()">Yes</button>
-				<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
-			</div>
-		</div>
-	</div>
+<div class="modal-header">
+ 		<h3>Header Text{{modalOptions.headerText}}
+ 			<h4 class="modal-title">Modal title</h4>
+ 		</h3>
+</div>
+<div class="modal-body">
+ 		<p>Body Text{{modalOptions.bodyText}}</p>
+</div>
+<div class="modal-footer">
+	<p>Footer Buttons</p>
+  	<button type="button" class="btn" data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText}}</button>
+  	<button class="btn btn-primary" data-ng-click="modalOptions.ok();">{{modalOptions.actionButtonText}}</button>
 </div>
