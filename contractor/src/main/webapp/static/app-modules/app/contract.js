@@ -79,8 +79,8 @@ contractModule.factory('contractService',
 					 
 				 transformResponse: function(data, headers) {
 					 
-					 alert(data.content);
-		             angular.fromJson(data);
+					 alert(data);
+		             data = angular.fromJson(data);
 		             alert(data);
 					 for (var i = 0; i <= data.content.length - 1; i++) {
 		                	data.content[i] = new EntityResource(data.content[i]);
