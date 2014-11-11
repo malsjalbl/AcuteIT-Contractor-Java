@@ -15,7 +15,7 @@
 
 </br>
 	
-	<data-my-list rows="listOptions.page" on-delete="popupAreYouSure(entity)">
+	<data-my-list rows="listOptions.page.content" on-delete="popupAreYouSure(entity)">
 	    //<column title='ID'><span class="muted">{{row.id}}</span></column>
 	    <column title="Contract Name"><a data-ng-href="#/contracts/{{row.id}}">{{row.symbol}}</a></column>
 	    <column title='Description'><span class="muted">{{row.description}}</span></column>

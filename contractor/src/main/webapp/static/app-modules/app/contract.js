@@ -75,7 +75,21 @@ contractModule.factory('contractService',
 				
 				'/contractor/contracts/:id',
 				 {id:'@id'},
-				 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: true}}
+				 {getPage: {method:'GET', url: '/contractor/contracts/page/:page', isArray: false,
+					 
+				 transformResponse: function(data, headers) {
+					 
+					 alert(data.content);
+		             angular.fromJson(data);
+		             alert(data);
+					 for (var i = 0; i <= data.content.length - 1; i++) {
+		                	data.content[i] = new EntityResource(data.content[i]);
+		                }
+		                return data;
+		            }
+				 
+				 
+				 }}
 		);
 		
 		EntityResource.prototype.toString = function contractToString() {
@@ -203,12 +217,13 @@ contractModule.controller('contractListController',
 		  
 		  $scope.popupAreYouSure = function(contract) {
 			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure?');
-			  modalInstance.result.then(function (result) {
-				  alert(contract.id);
-				  contract.$delete({id: contract.id});
+			  modalInstance.result.then(function (feedback) {
+				 /* targetContract = contractService.getNew();
+				  angular.extend(targetContract, contract);
+				  targetContract.$delete({id: contract.id});*/
 				  contractService.deleteById(contract);
 			    }, function () {
-			      $log.info('Modal dismissed at: ' + new Date());
+			      alert('Modal dismissed at: ' + new Date());
 			    });
 		  };
 		  
