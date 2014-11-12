@@ -203,28 +203,15 @@ contractModule.controller('contractListController',
 		    console.log('Page changed to: ' + $scope.currentPage.number);
 		  };
 
-		/*$scope.deleteContract = function(contract) {
-			
-			var confirmDeleteCallback = function() {
-				contractService.del(contract);
-			};
-			
-			var confirmCancelCallback = function() {
-				alert('Cancelling deletion...');
-			};
-			
-			uiService.genericCrudDeleteConfirm(contract, confirmDeleteCallback, confirmCancelCallback);
-		};*/
-		  
 		  $scope.popupAreYouSure = function(contract) {
 			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure you want to delete this Contract?');
 			  modalInstance.result.then(function (feedback) {
 				  dataService.deleteEntity(contract,
 						  				 function(value, responseHeaders) {
-					  						alert('Contract deleted:\n' + value + '\n' + responseHeaders + '\n')
+					  						//alert('Contract deleted:\n' + value + '\n' + responseHeaders + '\n')
 				  						 },
 				  						 function(responseHeaders) {
-				  							alert('Error deleting:\n' + responseHeaders + '\n')
+				  							//alert('Error deleting:\n' + responseHeaders + '\n')
 				  						 }
 				  );
 			    }, function () {

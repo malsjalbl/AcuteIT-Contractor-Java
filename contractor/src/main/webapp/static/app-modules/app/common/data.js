@@ -29,7 +29,7 @@ dataModule.factory('dataService',
         };
         
         dataFactory.deleteEntity = function(entity, successCallBack, failureCallBack) {
-        	entity.$delete({id: entity.id},	function() {successCallBack(value, responseHeaders);}, function() {failureCallBack(responseHeaders);});
+        	entity.$delete({id: entity.id},	function(value, responseHeaders) {successCallBack(value, responseHeaders);}, function() {failureCallBack(responseHeaders);});
         };
         
         dataFactory.getNewEntity = function(EntityResource) {
