@@ -79,12 +79,13 @@ contractModule.factory('contractService',
 					 
 				 transformResponse: function(data, headers) {
 					 
-					 alert(data);
+					 // nested page.content items stored as plain old JavaScript objects (not resource, which we require for CRUD).
 		             data = angular.fromJson(data);
-		             alert(data);
+		             
 					 for (var i = 0; i <= data.content.length - 1; i++) {
 		                	data.content[i] = new EntityResource(data.content[i]);
 		                }
+					 
 		                return data;
 		            }
 				 
@@ -179,7 +180,7 @@ contractModule.factory('contractService',
 // contractListController
 contractModule.controller('contractListController',
 		
-	function($scope, contractService, dialogService, viewService) {
+	function($scope, contractService, dialogService, viewService, dataService) {
 	
 		var INITIAL_PAGE = 1;
 		
@@ -216,22 +217,19 @@ contractModule.controller('contractListController',
 		};*/
 		  
 		  $scope.popupAreYouSure = function(contract) {
-			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure?');
+			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure you want to delete this Contract?');
 			  modalInstance.result.then(function (feedback) {
-				 /* targetContract = contractService.getNew();
-				  angular.extend(targetContract, contract);
-				  targetContract.$delete({id: contract.id});*/
-				  contractService.deleteById(contract);
+				  dataService.deleteEntity(contract,
+						  				 function(value, responseHeaders) {
+					  						alert('Contract deleted:\n' + value + '\n' + responseHeaders + '\n')
+				  						 },
+				  						 function(responseHeaders) {
+				  							alert('Error deleting:\n' + responseHeaders + '\n')
+				  						 }
+				  );
 			    }, function () {
 			      alert('Modal dismissed at: ' + new Date());
 			    });
-		  };
-		  
-		 
-		  
-		  $scope.deleteContract = function(contract) {
-			  alert('hi');
-			  contractService.del(contract);
 		  };
 	}
 );

@@ -81,7 +81,6 @@ mainModule.factory('mainService',
 		
 		mainFactory.getModuleViews = function(activeModule) {
 			
-			alert(modules);
 			return modules[activeModule].views;
 		};
 		
