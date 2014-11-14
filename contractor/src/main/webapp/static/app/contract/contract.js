@@ -3,6 +3,7 @@ var contractModule = angular.module('contract', ['main',
                                                  'data',
                                                  'messaging',
                                                  'view',
+                                                 'alerting',
                                                  'dialog',
                                                  'ngRoute']);
 
@@ -33,13 +34,13 @@ contractModule.config(
 			.when('/contracts/page/:page',
 					
 				{controller:  'contractListController',
-				 templateUrl: 'static/app-partials/contract-list-view.html'}
+				 templateUrl: 'static/app/contract/contract-list-view.html'}
 			)
 			
 			.when('/contracts/:contractId',
 					
 				{controller:  'contractDetailController',
-				 templateUrl: 'static/app-partials/contract-detail-view.html'}
+				 templateUrl: 'static/app/contract/contract-detail-view.html'}
 			)
 			
 			.otherwise({redirectTo:'/contracts/page/1'});
@@ -180,7 +181,7 @@ contractModule.factory('contractService',
 // contractListController
 contractModule.controller('contractListController',
 		
-	function($scope, contractService, dialogService, viewService, dataService) {
+	function($scope, contractService, dialogService, viewService, dataService, alertService) {
 	
 		var INITIAL_PAGE = 1;
 		
@@ -208,7 +209,7 @@ contractModule.controller('contractListController',
 			  modalInstance.result.then(function (feedback) {
 				  dataService.deleteEntity(contract,
 						  				 function(value, responseHeaders) {
-					  						//alert('Contract deleted:\n' + value + '\n' + responseHeaders + '\n')
+					  						alertService.alert();
 				  						 },
 				  						 function(responseHeaders) {
 				  							//alert('Error deleting:\n' + responseHeaders + '\n')

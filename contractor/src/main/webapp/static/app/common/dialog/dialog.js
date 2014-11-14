@@ -19,7 +19,7 @@ dialogModule.factory('dialogService',
 		dialogFactory.confirm = function(title, content) {
 			
 			return $modal.open({
-				templateUrl: 'static/dialog/dialog-confirm.html',
+				templateUrl: 'static/app/common/dialog/dialog-confirm.html',
 				controller: 'ConfirmDialogCtrl',
 				backdrop: 'static',
 				resolve: {
@@ -30,7 +30,7 @@ dialogModule.factory('dialogService',
 							content: function () {
 								return angular.copy(content);
 							}
-				}
+						 }
 			});
 		};
 		

@@ -4,22 +4,29 @@
     <title></title>
     
     <link rel="stylesheet" type="text/css" href="static/twitter-bootstrap/css/bootstrap.css"/>
+    
     <script src="static/jquery/jquery-1.9.1.min.js"></script>
-    <script src="static/twitter-bootstrap/js/bootstrap.js"></script>
-    <script src="static/json/json2.js"></script>
     <script src="static/angularJS/angular.js"></script>
     <script src="static/angularJS/angular-resource.js"></script>
     <script src="static/angularJS/angular-route.js"></script>
     <script src="static/angularJS/angular-animate.js"></script>
+    <script src="static/twitter-bootstrap/js/bootstrap.js"></script>
     <script src="static/angular-strap/angular-strap.js"></script>
     <script src="static/angular-strap/angular-strap.tpl.js"></script>
     <script src="static/angular-ui-bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
-    <script src="static/app-modules/app/common/data.js"></script>
-    <script src="static/dialog/dialog.js"></script>
-    <script src="static/app-modules/app/common/view.js"></script>
-	<script src="static/app-modules/app/common/messaging.js"></script>
-    <script src="static/app-modules/app/contract.js"></script>
-    <script src="static/app-modules/app/main.js"></script>
+
+    <script src="static/json/json2.js"></script>
+
+
+    
+    
+    <script src="static/app/common/data/data.js"></script>
+    <script src="static/app/common/dialog/dialog.js"></script>
+    <script src="static/app/common/view/view.js"></script>
+	<script src="static/app/common/messaging/messaging.js"></script>
+    <script src="static/app/common/alerting/alert.js"></script>
+    <script src="static/app/contract/contract.js"></script>
+    <script src="static/app/main/main.js"></script>
 
 </head>
 
