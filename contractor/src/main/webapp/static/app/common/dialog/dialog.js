@@ -1,18 +1,14 @@
 
 var dialogModule = angular.module('dialog', ['ui.bootstrap']);
+
+dialogModule.run(function($templateCache, $http) {
+	$http.get('static/app/common/dialog/dialog-confirm.html', {cache:$templateCache});
+	$http.get('static/app/common/dialog/dialog-error.html', {cache:$templateCache});
+});
  
 dialogModule.factory('dialogService',
 	 
 	function($modal) {
-	
-		var UI_BUTTON_PRESSED__YES = 0;
-		var UI_BUTTON_PRESSED__CANCEL = 1;
-		var UI_BUTTON_LABEL__YES = 'Yes';
-		var UI_BUTTON_LABEL__CANCEL = 'Cancel';
-		var UI_BUTTON_CSS__YES = 'btn-success';
-		var UI_BUTTON_CSS__CANCEL = 'btn-danger';
-		var UI_CRUD_DELETE__TITLE_TEXT = 'Delete';
-		var UI_CRUD_DELETE__LAST_CHANCE_MESSAGE_TEXT = 'Are you sure you want to delete this';
 	
 		var dialogFactory = {};
 		
@@ -34,6 +30,24 @@ dialogModule.factory('dialogService',
 			});
 		};
 		
+		dialogFactory.error = function(title, content) {
+			
+			return $modal.open({
+				templateUrl: 'static/app/common/dialog/dialog-error.html',
+				controller: 'ErrorDialogCtrl',
+				backdrop: 'static',
+				resolve: {
+					title: function () {
+						return angular.copy(title);
+					},
+			
+					content: function () {
+						return angular.copy(content);
+					}
+				 }
+			});
+		};
+		
 		return dialogFactory;
 	}
 ); 
@@ -46,13 +60,26 @@ dialogModule.controller('ConfirmDialogCtrl',
 		 $scope.content = (angular.isDefined(content)) ? content : 'Confirmation required.';
 		  
 		 $scope.cancel = function () {
-			 $modalInstance.dismiss('no');
+			 $modalInstance.dismiss();
 		 };
 		  
 		 $scope.close = function () {
-			 $modalInstance.close('yes');
+			 $modalInstance.close();
 		 };
 	}
 );
+
+dialogModule.controller('ErrorDialogCtrl',
+		
+		function($scope, $modalInstance, title, content) {
+	
+			$scope.title = (angular.isDefined(title)) ? title : 'Error';		 
+			$scope.content = (angular.isDefined(content)) ? content : 'An undetermined error occured.';
+			  
+			 $scope.close = function () {
+				 $modalInstance.close('yes');
+			 };
+		}
+	);
 
 

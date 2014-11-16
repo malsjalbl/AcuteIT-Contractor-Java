@@ -129,49 +129,9 @@ contractModule.factory('contractService',
         contractFactory.addListViewOptions = function(options) {
         	listViewOptions.push = options;
        };
-        
-       contractFactory.save = function(contract) {
-			
-			dataService.saveEntity(contract,
-					
-				function() {
-    			
-					// CRUD Save success
-					messagingService.setGenericCrudSaveSuccessMessage(contract);
-					viewService.reloadCurrentView();
-				},
-				
-				function() {
-					
-					// CRUD Save failure
-					messagingService.setGenericCrudSaveFailMessage(contract);
-					viewService.reloadCurrentView();
-				}
-			);
-		};
 		
 		contractFactory.deleteContract = function() {
 			dataService.deleteEntityById(contract);
-		};
-		
-		contractFactory.deleteById = function(contract) {
-			
-			dataService.deleteEntityById(contract,
-				
-        		function() {
-
-					// CRUD success
-					messagingService.setGenericCrudDeleteSuccessMessage(contract);
-					viewService.reloadCurrentView();
-				},
-				
-				function() {
-					
-					// CRUD failure
-					messagingService.setGenericCrudDeleteFailMessage(contract);
-					viewService.reloadCurrentView();
-				}
-			);
 		};
 
 		return contractFactory;
@@ -206,14 +166,17 @@ contractModule.controller('contractListController',
 
 		  $scope.popupAreYouSure = function(contract) {
 			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure you want to delete this Contract?');
-			  modalInstance.result.then(function (feedback) {
+			  modalInstance.result.then(function () {
+				  viewService.setSpinnerState(true);
 				  dataService.deleteEntity(contract,
-						  				 function(value, responseHeaders) {
-					  						alertService.alert();
-				  						 },
-				  						 function(responseHeaders) {
-				  							//alert('Error deleting:\n' + responseHeaders + '\n')
-				  						 }
+	  				 function(value, responseHeaders) {
+					  	viewService.setSpinnerState(false);
+  						alertService.addAlert({type: 'success', msg: 'Contract deleted successfully.'});				
+					 },
+					 function() {
+						viewService.setSpinnerState(false);
+						modalInstance = dialogService.error('Error', 'An error occurred attempting to delete contract [' + contract.symbol + '].');
+					 }
 				  );
 			    }, function () {
 			      alert('Modal dismissed at: ' + new Date());
@@ -225,16 +188,14 @@ contractModule.controller('contractListController',
 // contractDetailController
 contractModule.controller('contractDetailController',
 		
-	function($scope, $routeParams, contractService, viewService) {
+	function($scope, $routeParams, contractService, viewService, dataService, alertService, dialogService) {
 		
 		$scope.contractId = $routeParams.contractId;
 		$scope.isCollapsed = true;
-		// $scope.contractActivityTypeList = contractActivityTypeService.getAll();
 		$scope.activityLogItems = {};
 		
 		if ($scope.contractId != 0) {
 			$scope.contract = contractService.getById($scope.contractId);
-			//$scope.contract.startDate = new Date($scope.contract.startDate);
 		} else {
 			$scope.contract = contractService.getNew();
 			$scope.contract.contractActivityLogItems = [];
@@ -244,9 +205,16 @@ contractModule.controller('contractDetailController',
 			$scope.opened = true;
 		 };
 		
-		$scope.saveContract = function() {
-			contractService.save($scope.contract);
-		};
+		 $scope.saveContract = function() {
+			  dataService.saveEntity($scope.contract,
+  				 function(value, responseHeaders) {
+					alertService.addAlert({type: 'success', msg: 'Contract saved successfully.'});
+				 },
+				 function(responseHeaders) {
+					 modalInstance = dialogService.error('Error', 'An error occurred attempting to save contract [' + $scope.contract.symbol + '].');
+				 }
+			  );
+		  };
 		
 /*		$scope.delete = function() {
 			contractService.del($scope.contract);
