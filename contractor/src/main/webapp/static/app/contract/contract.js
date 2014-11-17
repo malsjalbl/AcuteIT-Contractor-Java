@@ -5,6 +5,7 @@ var contractModule = angular.module('contract', ['main',
                                                  'view',
                                                  'alerting',
                                                  'dialog',
+                                                 'spinner',
                                                  'ngRoute']);
 
 contractModule.run(
@@ -141,7 +142,7 @@ contractModule.factory('contractService',
 // contractListController
 contractModule.controller('contractListController',
 		
-	function($scope, contractService, dialogService, viewService, dataService, alertService) {
+	function($scope, contractService, dialogService, viewService, dataService, alertService, spinnerService) {
 	
 		var INITIAL_PAGE = 1;
 		
@@ -167,14 +168,14 @@ contractModule.controller('contractListController',
 		  $scope.popupAreYouSure = function(contract) {
 			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure you want to delete this Contract?');
 			  modalInstance.result.then(function () {
-				  viewService.setSpinnerState(true);
+				  spinnerService.isVisible(true);
 				  dataService.deleteEntity(contract,
 	  				 function(value, responseHeaders) {
-					  	viewService.setSpinnerState(false);
+					  spinnerService.isVisible(false);
   						alertService.addAlert({type: 'success', msg: 'Contract deleted successfully.'});				
 					 },
 					 function() {
-						viewService.setSpinnerState(false);
+						 spinnerService.isVisible(false);
 						modalInstance = dialogService.error('Error', 'An error occurred attempting to delete contract [' + contract.symbol + '].');
 					 }
 				  );
