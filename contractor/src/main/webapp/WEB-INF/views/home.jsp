@@ -19,6 +19,7 @@
     <script src="static/app/common/data/data.js"></script>
     <script src="static/app/common/dialog/dialog.js"></script>
     <script src="static/app/common/view/view.js"></script>
+    <script src="static/app/common/spinner/spinner.js"></script>
 	<script src="static/app/common/messaging/messaging.js"></script>
     <script src="static/app/common/alerting/alert.js"></script>
     <script src="static/app/contract/contract.js"></script>
@@ -106,8 +107,8 @@
 		</div>
 	</div>
 	
-	<div data-ng-controller="ViewCtrl" data-ng-show="{{viewService.spinner.state}}">
-		<img ng-src="{{viewService.spinner.src}}"></img>
+	<div data-ng-controller="SpinnerCtrl" data-ng-show="{{spinner.isVisible}}">
+		<img ng-src="{{spinner.src}}"></img>
 	</div>
 	
 	<!-- Main content area -->
