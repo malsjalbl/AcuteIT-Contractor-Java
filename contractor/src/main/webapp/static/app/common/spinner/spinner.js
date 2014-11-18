@@ -13,7 +13,7 @@ viewModule.factory('spinnerService',
 	
 		var spinnerFactory = {};
 		
-		var spinner = {isVisible: true, src: 'static/app/common/spinner/ajax-loader.gif'};
+		var spinner = {isVisible: false, src: 'static/app/common/spinner/ajax-loader.gif'};
 		
 		spinnerFactory.isVisible = function(state) {
 			
