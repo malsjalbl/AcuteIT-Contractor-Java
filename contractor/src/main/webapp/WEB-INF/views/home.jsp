@@ -107,8 +107,17 @@
 		</div>
 	</div>
 	
-	<div data-ng-controller="SpinnerCtrl" data-ng-show="{{spinner.isVisible}}">
-		<img ng-src="{{spinner.src}}"></img>
+	
+	<div data-ng-controller="SpinnerCtrl">
+		Spinner Controller<br/>
+		------------------<br/>
+		Spinner Object: {{spinner}}<br/>
+		isVisible property: {{spinner.isVisible}}<br/>
+		src property: {{spinner.src}}<br/>
+		<div data-ng-show="spinner.isVisible">
+			showtime!
+			<img data-ng-src="{{spinner.src}}">
+		</div>
 	</div>
 	
 	<!-- Main content area -->
