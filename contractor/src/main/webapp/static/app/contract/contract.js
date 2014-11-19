@@ -81,9 +81,9 @@ contractModule.factory('contractService',
 					 
 				 transformResponse: function(data, headers) {
 					 
-					 // nested page.content items stored as plain old JavaScript objects (not resource, which we require for CRUD).
+					 // Custom transform:
+					 // Nested page.content entities stored as plain old JavaScript objects (not resource, which we require for CRUD).
 		             data = angular.fromJson(data);
-		             
 					 for (var i = 0; i <= data.content.length - 1; i++) {
 		                	data.content[i] = new EntityResource(data.content[i]);
 		                }
@@ -147,9 +147,7 @@ contractModule.controller('contractListController',
 		var INITIAL_PAGE = 1;
 		
 		$scope.toggleSpinner = function() {
-			alert('Was :' + spinnerService.getSpinner().isVisible);
 			spinnerService.isVisible(!spinnerService.getSpinner().isVisible);
-			alert('Now :' + spinnerService.getSpinner().isVisible);
 		}
 		
 		$scope.listViewOptions = contractService.getListViewOptions();
@@ -171,21 +169,54 @@ contractModule.controller('contractListController',
 		    console.log('Page changed to: ' + $scope.currentPage.number);
 		  };
 
-		  $scope.popupAreYouSure = function(contract) {
+		  /*$scope.popupAreYouSure = function(contract) {
 			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure you want to delete this Contract?');
 			  
 			  modalInstance.result.then(
 				function() { // modal closed with 'result'
 					
 				  spinnerService.isVisible(true);
-				  alert(spinnerService.getSpinner().isVisible);
 				  
 				  dataService.deleteEntity(contract,
 	  				 function(value, responseHeaders) {
-					 
+					  
+					  	spinnerService.isVisible(false);
   						alertService.addAlert({type: 'success', msg: 'Contract deleted successfully.'});				
 					 },
-					 function(reason) {
+					 function() {
+						 
+						spinnerService.isVisible(false);
+						modalInstance = dialogService.error('Error', 'An error occurred attempting to delete contract [' + contract.symbol + '].');
+					});
+			    },
+			    
+			    function () { // modal dismissed with 'reason'
+			    	
+			      alert('Modal dismissed at: ' + new Date());
+			    });
+		  };*/
+		  
+		  
+		  $scope.popupAreYouSure = function(contract) {
+			  modalInstance = dialogService.ajaxConfirm({
+				  title: 'Delete Contract [' + contract.symbol + ']',
+				  content: 'Are you sure you want to delete this Contract?',
+				  action: dataService.deleteEntity,
+				  actionOn: contract});
+			  }
+			  
+			  modalInstance.result.then(
+				function() { // modal closed with 'result'
+					
+				  spinnerService.isVisible(true);
+				  
+				  dataService.deleteEntity(contract,
+	  				 function(value, responseHeaders) {
+					  
+					  	spinnerService.isVisible(false);
+  						alertService.addAlert({type: 'success', msg: 'Contract deleted successfully.'});				
+					 },
+					 function() {
 						 
 						spinnerService.isVisible(false);
 						modalInstance = dialogService.error('Error', 'An error occurred attempting to delete contract [' + contract.symbol + '].');
@@ -197,6 +228,9 @@ contractModule.controller('contractListController',
 			      alert('Modal dismissed at: ' + new Date());
 			    });
 		  };
+		  
+		  
+		  
 	}
 );
 

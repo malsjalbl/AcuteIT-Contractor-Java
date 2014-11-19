@@ -109,10 +109,14 @@
 	
 	
 	<div data-ng-controller="SpinnerCtrl">
-		Spinner: {{spinner}}
-		show: {{spinner.isVisible}}
-		<div data-ng-show="{{spinner.isVisible}}">
-			<img data-ng-src="{{spinner.src}}"></img>
+		Spinner Controller<br/>
+		------------------<br/>
+		Spinner Object: {{spinner}}<br/>
+		isVisible property: {{spinner.isVisible}}<br/>
+		src property: {{spinner.src}}<br/>
+		<div data-ng-show="spinner.isVisible">
+			showtime!
+			<img data-ng-src="{{spinner.src}}">
 		</div>
 	</div>
 	
