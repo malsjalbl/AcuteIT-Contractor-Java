@@ -109,10 +109,12 @@ dialogModule.controller('AjaxConfirmDialogCtrl',
 				 $scope.dismissButton.isDisabled = true
 				 options.action(options.actionOn,
 			 		function() {
+					 	// action successful
 						 $scope.confirmButton.isVisible = false;
 						 $scope.dismissButton.isVisible = false
 				 	},
 				 	function() {
+				 		// action unsuccessful
 						 $scope.confirmButton.isVisible = false;
 						 $scope.dismissButton.isVisible = false
 				 	}
