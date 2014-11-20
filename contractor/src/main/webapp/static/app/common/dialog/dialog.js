@@ -4,7 +4,16 @@ var dialogModule = angular.module('dialog', ['ui.bootstrap']);
 dialogModule.run(function($templateCache, $http) {
 	$http.get('static/app/common/dialog/dialog-confirm.html', {cache:$templateCache});
 	$http.get('static/app/common/dialog/dialog-error.html', {cache:$templateCache});
+	$http.get('static/app/common/dialog/dialog-ajax-confirm.html', {cache:$templateCache});
+	$http.get('static/app/common/dialog/default_spinner.gif', {cache:$templateCache});
 });
+
+dialogModule.factory('dialogSpinnerService', function() {
+	
+	
+});
+		
+
  
 dialogModule.factory('dialogService',
 	 
@@ -98,35 +107,45 @@ dialogModule.controller('ErrorDialogCtrl',
 
 dialogModule.controller('AjaxConfirmDialogCtrl',
 		
-		function($scope, $modalInstance, options) {
+		function($scope, $modalInstance, options, modalSpinnerService) {
 		
 			 $scope.title = (angular.isDefined(options.title)) ? options.title : 'Confirmation';
 			 $scope.content = (angular.isDefined(options.content)) ? options.content : 'Confirmation required.';
-			  
-			 $scope.confirmActionChosen = function () {
+			 
+			 $scope.dismissButton.label = 'Cancel';
+			 $scope.dismissButton.isDisabled = false;
+			 $scope.confirmButton.label = 'OK';
+			 $scope.confirmButton.isDisabled = false;
+			 
+			 $scope.spinner = modalSpinnerService.getSpinner();
+			 
+			 $scope.confirm = function () {
+				 
 				 $scope.spinner.isVisible(true);
 				 $scope.confirmButton.isDisabled = true;
 				 $scope.dismissButton.isDisabled = true
+				 
 				 options.action(options.actionOn,
+						 
 			 		function() {
 					 	// action successful
-						 $scope.confirmButton.isVisible = false;
-						 $scope.dismissButton.isVisible = false
+					 	$scope.spinner.isVisible(false);
+						$scope.confirmButton.isDisabled = false;
+						$scope.dismissButton.isVisible = false
 				 	},
+				 	
 				 	function() {
 				 		// action unsuccessful
-						 $scope.confirmButton.isVisible = false;
-						 $scope.dismissButton.isVisible = false
+				 		$scope.spinner.isVisible(false);
+				 		$scope.confirmButton.isDisabled = false;
+				 		$scope.confirmButton.label = 'Try Again...';
+						$scope.dismissButton.isDisabled = false;
 				 	}
 				 );
 			 };
 			 
-			 $scope.cancel = function () {
+			 $scope.dismiss = function () {
 				 $modalInstance.dismiss();
-			 };
-			  
-			 $scope.close = function () {
-				 $modalInstance.close();
 			 };
 		}
 	);

@@ -1,4 +1,4 @@
-var viewModule = angular.module('spinner', []);
+var viewModule = angular.module('app.spinner', []);
 
 viewModule.run(function($templateCache, $http) {
 	$http.get('static/app/common/spinner/ajax-loader.gif', {cache:$templateCache});
