@@ -5,7 +5,7 @@ var contractModule = angular.module('contract', ['main',
                                                  'view',
                                                  'alerting',
                                                  'dialog',
-                                                 'spinner',
+                                                 'app.spinner',
                                                  'ngRoute']);
 
 contractModule.run(
@@ -198,40 +198,27 @@ contractModule.controller('contractListController',
 		  
 		  
 		  $scope.popupAreYouSure = function(contract) {
+			  
 			  modalInstance = dialogService.ajaxConfirm({
+				  
 				  title: 'Delete Contract [' + contract.symbol + ']',
-				  content: 'Are you sure you want to delete this Contract?',
+				  content: 'Are you ture you want to delete this Contract?',
 				  action: dataService.deleteEntity,
 				  actionOn: contract});
-			  }
 			  
 			  modalInstance.result.then(
+					  
 				function() { // modal closed with 'result'
 					
-				  spinnerService.isVisible(true);
-				  
-				  dataService.deleteEntity(contract,
-	  				 function(value, responseHeaders) {
-					  
-					  	spinnerService.isVisible(false);
-  						alertService.addAlert({type: 'success', msg: 'Contract deleted successfully.'});				
-					 },
-					 function() {
-						 
-						spinnerService.isVisible(false);
-						modalInstance = dialogService.error('Error', 'An error occurred attempting to delete contract [' + contract.symbol + '].');
-					});
+					alert('Modal closed at: ' + new Date());
 			    },
 			    
 			    function () { // modal dismissed with 'reason'
 			    	
 			      alert('Modal dismissed at: ' + new Date());
 			    });
-		  };
-		  
-		  
-		  
-	}
+		 }
+}
 );
 
 // contractDetailController

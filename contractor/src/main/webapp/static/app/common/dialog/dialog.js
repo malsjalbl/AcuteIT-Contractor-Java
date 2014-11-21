@@ -9,8 +9,22 @@ dialogModule.run(function($templateCache, $http) {
 });
 
 dialogModule.factory('dialogSpinnerService', function() {
-	
-	
+		
+		var dialogSpinnerFactory = {};
+		
+		var spinner = {isVisible: false, src: 'static/app/common/spinner/ajax-loader.gif'};
+		
+		dialogSpinnerFactory.isVisible = function(state) {
+			
+			spinner.isVisible = state;
+		};
+		
+		dialogSpinnerFactory.getSpinner = function() {
+			
+			return spinner;
+		};
+		
+		return dialogSpinnerFactory;
 });
 		
 
@@ -60,8 +74,8 @@ dialogModule.factory('dialogService',
 		dialogFactory.ajaxConfirm = function(options) {
 					
 			return $modal.open({
-				templateUrl: 'static/app/common/dialog/dialog-data-confirm.html',
-				controller: 'DataConfirmDialogCtrl',
+				templateUrl: 'static/app/common/dialog/dialog-ajax-confirm.html',
+				controller: 'AjaxConfirmDialogCtrl',
 				backdrop: 'static',
 				resolve: {
 							options: function () {
@@ -107,36 +121,41 @@ dialogModule.controller('ErrorDialogCtrl',
 
 dialogModule.controller('AjaxConfirmDialogCtrl',
 		
-		function($scope, $modalInstance, options, modalSpinnerService) {
+		function($scope, $modalInstance, options, dialogSpinnerService) {
 		
 			 $scope.title = (angular.isDefined(options.title)) ? options.title : 'Confirmation';
 			 $scope.content = (angular.isDefined(options.content)) ? options.content : 'Confirmation required.';
+			 
+			 $scope.dismissButton = {};
+			 $scope.confirmButton = {}
+			 $scope.dismissButton.isVisible = true;
+			 $scope.confirmButton.isVisible = true;
 			 
 			 $scope.dismissButton.label = 'Cancel';
 			 $scope.dismissButton.isDisabled = false;
 			 $scope.confirmButton.label = 'OK';
 			 $scope.confirmButton.isDisabled = false;
 			 
-			 $scope.spinner = modalSpinnerService.getSpinner();
+			 $scope.spinner = dialogSpinnerService.getSpinner();
 			 
 			 $scope.confirm = function () {
 				 
-				 $scope.spinner.isVisible(true);
+				 $scope.spinner.isVisible = true;
 				 $scope.confirmButton.isDisabled = true;
 				 $scope.dismissButton.isDisabled = true
 				 
 				 options.action(options.actionOn,
-						 
-			 		function() {
-					 	// action successful
-					 	$scope.spinner.isVisible(false);
+	
+					function() {
+				 		// action successful
+					 	$scope.spinner.isVisible = false;
 						$scope.confirmButton.isDisabled = false;
 						$scope.dismissButton.isVisible = false
 				 	},
 				 	
 				 	function() {
 				 		// action unsuccessful
-				 		$scope.spinner.isVisible(false);
+				 		$scope.spinner.isVisible = false;
 				 		$scope.confirmButton.isDisabled = false;
 				 		$scope.confirmButton.label = 'Try Again...';
 						$scope.dismissButton.isDisabled = false;

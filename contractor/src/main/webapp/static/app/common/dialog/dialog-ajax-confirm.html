@@ -3,8 +3,12 @@
 </div>
 <div class="modal-body">
     <p>{{content}}</p>
+    <div data-ng-show="spinner.isVisible">
+		showtime!
+		<img data-ng-src="{{spinner.src}}">
+	</div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-warning" ng-click="confirm()">{{confirmButton.label}}</button>
-    <button class="btn btn-primary" ng-click="dismiss()">{{dismissButton.label}}</button>
+    <button class="btn btn-warning" data-ng-disabled="confirmButton.isDisabled" data-ng-show="confirmButton.isVisible" ng-click="confirm()">{{confirmButton.label}}</button>
+    <button class="btn btn-primary" data-ng-disabled="dismissButton.isDisabled" data-ng-show="dismissButton.isVisible" ng-click="dismiss()">{{dismissButton.label}}</button>
 </div>
