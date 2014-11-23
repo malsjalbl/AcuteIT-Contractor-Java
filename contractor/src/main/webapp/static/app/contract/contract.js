@@ -129,10 +129,12 @@ contractModule.factory('contractService',
 		
 		contractFactory.setConfig(optionArray) {
 			
-			for (var i = 0; i <= optionArray.lenght(); i++) {
-				
+			angular.foreach
+			
+			for (var i = 0; i <= optionArray.length(); i++) {
+				contractConfig[optionArray[i]] = 
 			}
-			contractConfig[option]
+			
 		}
 
 		return contractFactory;
