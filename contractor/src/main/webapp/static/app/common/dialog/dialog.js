@@ -127,35 +127,56 @@ dialogModule.controller('AjaxConfirmDialogCtrl',
 			 $scope.content = (angular.isDefined(options.content)) ? options.content : 'Confirmation required.';
 			 
 			 $scope.dismissButton = {};
-			 $scope.confirmButton = {}
+			 $scope.confirmButton = {};
+			 $scope.closeButton = {};
+			 $scope.message = {};
+			 
 			 $scope.dismissButton.isVisible = true;
 			 $scope.confirmButton.isVisible = true;
+			 $scope.closeButton.isVisible = false;
+			 $scope.message.isVisible = false;
 			 
 			 $scope.dismissButton.label = 'Cancel';
+			 $scope.confirmButton.label = 'Yes';
+			 $scope.closeButton.label = 'Close';
+			 $scope.message.content = 'An error occured';
+			 
 			 $scope.dismissButton.isDisabled = false;
-			 $scope.confirmButton.label = 'OK';
 			 $scope.confirmButton.isDisabled = false;
+			 $scope.closeButton.isDisabled = true;
 			 
 			 $scope.spinner = dialogSpinnerService.getSpinner();
 			 
 			 $scope.confirm = function () {
 				 
 				 $scope.spinner.isVisible = true;
+				 $scope.content = "Attempting operation...";
 				 $scope.confirmButton.isDisabled = true;
-				 $scope.dismissButton.isDisabled = true
+				 $scope.dismissButton.isDisabled = true;
+				 $scope.message.isVisible = false;
 				 
 				 options.action(options.actionOn,
 	
-					function() {
+					function(value) {
 				 		// action successful
 					 	$scope.spinner.isVisible = false;
-						$scope.confirmButton.isDisabled = false;
-						$scope.dismissButton.isVisible = false
+					 	$scope.content = "Operation completed successfully.";
+					 	$scope.message.isVisible = true;
+				 		$scope.message.content = value;
+						$scope.confirmButton.isVisible = false;
+						$scope.confirmButton.isDisabled = true;
+						$scope.dismissButton.isVisible = false;
+						$scope.dismissButton.isDisabled = true;
+						$scope.closeButton.isDisabled = false;
+						$scope.closeButton.isVisible = true;
 				 	},
 				 	
-				 	function() {
+				 	function(responseHeaders) {
 				 		// action unsuccessful
 				 		$scope.spinner.isVisible = false;
+				 		$scope.content = 'Operation failed.';
+				 		$scope.message.isVisible = true;
+				 		$scope.message.content = responseHeaders;
 				 		$scope.confirmButton.isDisabled = false;
 				 		$scope.confirmButton.label = 'Try Again...';
 						$scope.dismissButton.isDisabled = false;
@@ -165,6 +186,10 @@ dialogModule.controller('AjaxConfirmDialogCtrl',
 			 
 			 $scope.dismiss = function () {
 				 $modalInstance.dismiss();
+			 };
+			 
+			 $scope.close = function () {
+				 $modalInstance.close();
 			 };
 		}
 	);

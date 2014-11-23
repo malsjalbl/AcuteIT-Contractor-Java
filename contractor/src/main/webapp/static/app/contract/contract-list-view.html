@@ -9,6 +9,7 @@
 					<!-- <a data-ng-repeat="option in listViewOptions" role="button" class="btn btn-default" href="{{option.url}}">{{option.displayLabel}}</a> -->
 				</div>
 			</h3>
+			<pagination total-items="7" ng-model="currentPageNumber" items-per-page="5" ng-change="pageChanged()"></pagination>
 		</div>
 	</div>
 </div>
@@ -18,7 +19,7 @@
 	<button data-ng-click="toggleSpinner()">Toggle Spinner</button>
 	
 	
-	<data-my-list rows="listOptions.page.content" on-delete="popupAreYouSure(entity)">
+	<data-my-list rows="currentPage.content" on-delete="popupAreYouSure(entity)">
 	    //<column title='ID'><span class="muted">{{row.id}}</span></column>
 	    <column title="Contract Name"><a data-ng-href="#/contracts/{{row.id}}">{{row.symbol}}</a></column>
 	    <column title='Description'><span class="muted">{{row.description}}</span></column>
@@ -27,8 +28,10 @@
 	    <column title=""><button class="btn btn-mini pull-right" data-tooltip="Delete {{row.symbol}}" data-ng-click="deleteRow({entity: row})"><span class="glyphicon glyphicon-remove-sign"></span></button></column>
 	</data-my-list>
 	
-	Total Items: {{totalItems}}
-	Items per Page: {{itemsPerPage}}
-	Current Page Number: {{currentPageNumber}}
-	<pagination total-items="totalItems" ng-model="currentPageNumber" items-per-page="itemsPerPage" ng-change="pageChanged()"></pagination>
+	<!-- numberOfElements: {{currentPage.numberOfElements}}<br>
+	size: {{currentPage.size}}<br>
+	totalElements: {{currentPage.totalElements}}<br>
+	Current Page Number: {{currentPageNumber}} <br>
+	Number of pages: {{currentPage.totalPages}}<br> -->
+	
 

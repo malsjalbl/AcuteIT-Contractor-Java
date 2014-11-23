@@ -10,19 +10,19 @@ var contractModule = angular.module('contract', ['main',
 
 contractModule.run(
 		
-		 function(mainService, contractService) {
-			
-			 var MODULE_DISPLAY_NAME = 'Contracts';
-			 var MODULE_HOME_URL = '#/contracts/page/1';
+	 function(mainService, contractService) {
+		
+		 var MODULE_DISPLAY_NAME = 'Contracts';
+		 //var MODULE_HOME_URL = '#/contracts/page/1';
+		 var MODULE_HOME_URL = '#/contracts';
+		 
+		 mainService.registerModule({
 			 
-			 mainService.registerModule({
-				 
-				 displayName:	MODULE_DISPLAY_NAME,
-				 homeUrl:		MODULE_HOME_URL,
-				 //views:			[{displayName: OPTION_DISPLAY_NAME_CONTRACTS, homeUrl: OPTION_HOME_URL_CONTRACTS}]
-			 });
-		}
-	);
+			 displayName:	MODULE_DISPLAY_NAME,
+			 homeUrl:		MODULE_HOME_URL,
+		 });
+	 }
+);
 
 contractModule.config(
 		
@@ -32,8 +32,8 @@ contractModule.config(
 		
 		$routeProvider
 		
-			.when('/contracts/page/:page',
-					
+			//.when('/contracts/page/:page',
+			.when('/contracts',		
 				{controller:  'contractListController',
 				 templateUrl: 'static/app/contract/contract-list-view.html'}
 			)
@@ -42,9 +42,9 @@ contractModule.config(
 					
 				{controller:  'contractDetailController',
 				 templateUrl: 'static/app/contract/contract-detail-view.html'}
-			)
+			);
 			
-			.otherwise({redirectTo:'/contracts/page/1'});
+			//.otherwise({redirectTo:'/contracts/page/1'});
 	}]
 );
 
@@ -58,9 +58,7 @@ contractModule.factory('contractService',
 	
 		var CLASS_NAME = 'Contract';
 		var listViewOptions = [];
-		
-		var OPTION_CONTRACT_LIST_LABEL = 'Contract List';
-		var OPTION_CONTRACT_LIST_URL = '#/contracts/page/1';
+		var contractConfig = {dataListRefreshOnHomePage: true};
 		
 		var OPTION_NEW_CONTRACT_LABEL  = 'New Contract';
 		var OPTION_NEW_CONTRACT_URL = '/contracts/0';
@@ -82,7 +80,7 @@ contractModule.factory('contractService',
 				 transformResponse: function(data, headers) {
 					 
 					 // Custom transform:
-					 // Nested page.content entities stored as plain old JavaScript objects (not resource, which we require for CRUD).
+					 // Nested page.content entities stored as plain old JavaScript objects (not resource, which we require for easy CRUD).
 		             data = angular.fromJson(data);
 					 for (var i = 0; i <= data.content.length - 1; i++) {
 		                	data.content[i] = new EntityResource(data.content[i]);
@@ -90,18 +88,12 @@ contractModule.factory('contractService',
 					 
 		                return data;
 		            }
-				 
-				 
 				 }}
 		);
 		
 		EntityResource.prototype.toString = function contractToString() {
 			return this.symbol;
 		};
-		
-		/*EntityResource.prototype.className = function contractClassEntityName() {
-			return CLASS_NAME;
-		};*/
 		
 		EntityResource.prototype.className = CLASS_NAME;
 		
@@ -134,6 +126,14 @@ contractModule.factory('contractService',
 		contractFactory.deleteContract = function() {
 			dataService.deleteEntityById(contract);
 		};
+		
+		contractFactory.setConfig(optionArray) {
+			
+			for (var i = 0; i <= optionArray.lenght(); i++) {
+				
+			}
+			contractConfig[option]
+		}
 
 		return contractFactory;
 	}
@@ -142,67 +142,38 @@ contractModule.factory('contractService',
 // contractListController
 contractModule.controller('contractListController',
 		
-	function($scope, contractService, dialogService, viewService, dataService, alertService, spinnerService) {
+	function($scope,
+			 contractService,
+			 dialogService,
+			 viewService, dataService, alertService, spinnerService) {
 	
-		var INITIAL_PAGE = 1;
+		$scope.currentPageNumber = 1;
+		$scope.currentPage = contractService.getPage($scope.currentPageNumber);
 		
 		$scope.toggleSpinner = function() {
 			spinnerService.isVisible(!spinnerService.getSpinner().isVisible);
-		}
+		};
 		
 		$scope.listViewOptions = contractService.getListViewOptions();
 
 		// $scope.optionsOnListView = contractService.getOptionsOnListView();
 		$scope.defaultContractAction = $scope.listViewOptions[0];
 		
-		$scope.currentPageNumber = INITIAL_PAGE;
-		$scope.totalItems = 7;
 		$scope.itemsPerPage = 5;
-		
-		$scope.listViewActions
-		$scope.currentPage = contractService.getPage($scope.currentPageNumber);
 
 		$scope.listOptions = {page: $scope.currentPage,
 							  rowsPerPage: [10, 25, 50]};
 		
 		$scope.pageChanged = function() {
-		    console.log('Page changed to: ' + $scope.currentPage.number);
-		  };
+			$scope.currentPage = contractService.getPage($scope.currentPageNumber);
+		};
 
-		  /*$scope.popupAreYouSure = function(contract) {
-			  modalInstance = dialogService.confirm('Delete Contract [' + contract.symbol + ']', 'Are you sure you want to delete this Contract?');
-			  
-			  modalInstance.result.then(
-				function() { // modal closed with 'result'
-					
-				  spinnerService.isVisible(true);
-				  
-				  dataService.deleteEntity(contract,
-	  				 function(value, responseHeaders) {
-					  
-					  	spinnerService.isVisible(false);
-  						alertService.addAlert({type: 'success', msg: 'Contract deleted successfully.'});				
-					 },
-					 function() {
-						 
-						spinnerService.isVisible(false);
-						modalInstance = dialogService.error('Error', 'An error occurred attempting to delete contract [' + contract.symbol + '].');
-					});
-			    },
-			    
-			    function () { // modal dismissed with 'reason'
-			    	
-			      alert('Modal dismissed at: ' + new Date());
-			    });
-		  };*/
-		  
-		  
 		  $scope.popupAreYouSure = function(contract) {
 			  
 			  modalInstance = dialogService.ajaxConfirm({
 				  
 				  title: 'Delete Contract [' + contract.symbol + ']',
-				  content: 'Are you ture you want to delete this Contract?',
+				  content: 'Are you sure you want to delete this Contract?',
 				  action: dataService.deleteEntity,
 				  actionOn: contract});
 			  
@@ -210,12 +181,13 @@ contractModule.controller('contractListController',
 					  
 				function() { // modal closed with 'result'
 					
-					alert('Modal closed at: ' + new Date());
+					viewService.reloadCurrentView();
+					//alert('Modal closed at: ' + new Date());
 			    },
 			    
 			    function () { // modal dismissed with 'reason'
 			    	
-			      alert('Modal dismissed at: ' + new Date());
+			      //alert('Modal dismissed at: ' + new Date());
 			    });
 		 }
 }
