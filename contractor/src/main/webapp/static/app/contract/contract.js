@@ -58,7 +58,7 @@ contractModule.factory('contractService',
 	
 		var CLASS_NAME = 'Contract';
 		var listViewOptions = [];
-		var contractConfig = {dataListRefreshOnHomePage: true};
+		var contractConfig = {};
 		
 		var OPTION_NEW_CONTRACT_LABEL  = 'New Contract';
 		var OPTION_NEW_CONTRACT_URL = '/contracts/0';
@@ -127,14 +127,8 @@ contractModule.factory('contractService',
 			dataService.deleteEntityById(contract);
 		};
 		
-		contractFactory.setConfig(optionArray) {
-			
-			angular.foreach
-			
-			for (var i = 0; i <= optionArray.length(); i++) {
-				contractConfig[optionArray[i]] = 
-			}
-			
+		contractFactory.setConfig(options) {
+			contractConfig = angular.extend({}, options);
 		}
 
 		return contractFactory;
@@ -147,10 +141,19 @@ contractModule.controller('contractListController',
 	function($scope,
 			 contractService,
 			 dialogService,
-			 viewService, dataService, alertService, spinnerService) {
+			 viewService,
+			 dataService,
+			 alertService,
+			 spinnerService) {
 	
-		$scope.currentPageNumber = 1;
-		$scope.currentPage = contractService.getPage($scope.currentPageNumber);
+		contractService.setConfig({listView: {refreshFromDataSource: true,
+											  currentPageNumber: 1,
+											  itemsPerPage: 5}
+								 });
+		
+		$scope.currentPageNumber = contractService.getConfig().listView.currentPageNumber;
+		
+		
 		
 		$scope.toggleSpinner = function() {
 			spinnerService.isVisible(!spinnerService.getSpinner().isVisible);
@@ -161,13 +164,16 @@ contractModule.controller('contractListController',
 		// $scope.optionsOnListView = contractService.getOptionsOnListView();
 		$scope.defaultContractAction = $scope.listViewOptions[0];
 		
-		$scope.itemsPerPage = 5;
-
 		$scope.listOptions = {page: $scope.currentPage,
 							  rowsPerPage: [10, 25, 50]};
 		
-		$scope.pageChanged = function() {
-			$scope.currentPage = contractService.getPage($scope.currentPageNumber);
+		$scope.updatePage = function(isDataSourceRefresh) {
+			// Changing pagination attributes resets it...
+			if (isDataSourceRefresh) {
+				$scope.itemsPerPage = contractService.getConfig().listView.itemsPerPage;
+				$scope.currentPage = contractService.getPage($scope.currentPageNumber);
+				$scope.totalItems = $scope.currentPage.totalItems;
+			}
 		};
 
 		  $scope.popupAreYouSure = function(contract) {
