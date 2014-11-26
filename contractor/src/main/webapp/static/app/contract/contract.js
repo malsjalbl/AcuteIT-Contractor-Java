@@ -13,7 +13,6 @@ contractModule.run(
 	 function(mainService, contractService) {
 		
 		 var MODULE_DISPLAY_NAME = 'Contracts';
-		 //var MODULE_HOME_URL = '#/contracts/page/1';
 		 var MODULE_HOME_URL = '#/contracts';
 		 
 		 mainService.registerModule({
@@ -127,8 +126,12 @@ contractModule.factory('contractService',
 			dataService.deleteEntityById(contract);
 		};
 		
-		contractFactory.setConfig(options) {
+		contractFactory.setConfig = function(options) {
 			contractConfig = angular.extend({}, options);
+		}
+		
+		contractFactory.getConfig = function() {
+			return contractConfig;
 		}
 
 		return contractFactory;
@@ -146,13 +149,17 @@ contractModule.controller('contractListController',
 			 alertService,
 			 spinnerService) {
 	
-		contractService.setConfig({listView: {refreshFromDataSource: true,
-											  currentPageNumber: 1,
-											  itemsPerPage: 5}
+		contractService.setConfig({listView: {doReloadFromDataSource: true,
+											  currentPageNumber: 2,
+											  itemsPerPage: 6}
 								 });
 		
-		$scope.currentPageNumber = contractService.getConfig().listView.currentPageNumber;
-		
+		$scope.currentPage = contractService.getPage(contractService.getConfig().listView.currentPageNumber);
+		$scope.itemsPerPage = $scope.currentPage.size;
+		$scope.totalItems = $scope.currentPage.totalElements;
+		alert('size: ' + $scope.currentPage.size);
+		alert('totalElements: ' + $scope.currentPage.totalElements);
+		contractService.getConfig().listView.doReloadFromDataSource = false;
 		
 		
 		$scope.toggleSpinner = function() {
@@ -167,11 +174,11 @@ contractModule.controller('contractListController',
 		$scope.listOptions = {page: $scope.currentPage,
 							  rowsPerPage: [10, 25, 50]};
 		
-		$scope.updatePage = function(isDataSourceRefresh) {
-			// Changing pagination attributes resets it...
-			if (isDataSourceRefresh) {
-				$scope.itemsPerPage = contractService.getConfig().listView.itemsPerPage;
-				$scope.currentPage = contractService.getPage($scope.currentPageNumber);
+		$scope.updatePage = function() {
+			// Changing pagination resets the scope attributes
+			$scope.currentPage = contractService.getPage($scope.currentPageNumber);
+			if (contractService.getConfig().listView.doReloadFromDataSource) {
+				$scope.itemsPerPage = $scope.currentPage.itemsPerPage;
 				$scope.totalItems = $scope.currentPage.totalItems;
 			}
 		};
