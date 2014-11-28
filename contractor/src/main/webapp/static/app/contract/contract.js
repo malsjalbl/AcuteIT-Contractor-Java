@@ -150,16 +150,19 @@ contractModule.controller('contractListController',
 			 spinnerService) {
 	
 		contractService.setConfig({listView: {doReloadFromDataSource: true,
-											  currentPageNumber: 2,
-											  itemsPerPage: 6}
-								 });
+											  currentPageNumber: 1,
+											  maxItemsPerPage: 5}});
 		
-		$scope.currentPage = contractService.getPage(contractService.getConfig().listView.currentPageNumber);
-		$scope.itemsPerPage = $scope.currentPage.size;
-		$scope.totalItems = $scope.currentPage.totalElements;
-		alert('size: ' + $scope.currentPage.size);
-		alert('totalElements: ' + $scope.currentPage.totalElements);
-		contractService.getConfig().listView.doReloadFromDataSource = false;
+		$scope.pagination = {pageNumber: contractService.getConfig().listView.currentPageNumber,
+							 maxItems: contractService.getConfig().listView.maxItemsPerPage}
+		
+		contractService.getPage($scope.pagination.pageNumber).$promise.then(function(page){
+			$scope.currentPage = page;
+			$scope.pagination.totalItems = page.totalElements
+		});
+		//$scope.pagination.totalItems = $scope.currentPage.totalElements;
+		//alert('totalElements: ' + $scope.pagination.totalItems);
+		//contractService.getConfig().listView.doReloadFromDataSource = false;
 		
 		
 		$scope.toggleSpinner = function() {
@@ -175,12 +178,7 @@ contractModule.controller('contractListController',
 							  rowsPerPage: [10, 25, 50]};
 		
 		$scope.updatePage = function() {
-			// Changing pagination resets the scope attributes
-			$scope.currentPage = contractService.getPage($scope.currentPageNumber);
-			if (contractService.getConfig().listView.doReloadFromDataSource) {
-				$scope.itemsPerPage = $scope.currentPage.itemsPerPage;
-				$scope.totalItems = $scope.currentPage.totalItems;
-			}
+			$scope.currentPage = contractService.getPage($scope.pagination.pageNumber);
 		};
 
 		  $scope.popupAreYouSure = function(contract) {
