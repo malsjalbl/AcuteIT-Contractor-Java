@@ -9,7 +9,7 @@
 					<!-- <a data-ng-repeat="option in listViewOptions" role="button" class="btn btn-default" href="{{option.url}}">{{option.displayLabel}}</a> -->
 				</div>
 			</h3>
-			<pagination total-items="pagination.totalItems" ng-model="pagination.pageNumber" items-per-page="pagination.maxItems" ng-change="updatePage()"></pagination>
+			<pagination data-ng-disabled="pagination.isDisabled" total-items="pagination.totalItems" data-ng-model="pagination.pageNumber" items-per-page="pagination.maxItems" ng-change="updatePage()"></pagination>
 		</div>
 	</div>
 </div>
@@ -25,7 +25,7 @@
 	    <column title='Description'><span class="muted">{{row.description}}</span></column>
 	    <!--<column title='Start Date'>{{row.startDate}}</column>
 	    <column title='End Date'>{{row.endDate}}</column> -->
-	    <column title=""><button class="btn btn-mini pull-right" data-tooltip="Delete {{row.symbol}}" data-ng-click="deleteRow({entity: row})"><span class="glyphicon glyphicon-remove-sign"></span></button></column>
+	    <column title=""><button class="btn pull-right" data-tooltip="Delete {{row.symbol}}" data-ng-click="deleteRow({entity: row})"><span class="glyphicon glyphicon-remove-sign"></span></button></column>
 	</data-my-list>
 	
 	numberOfElements: {{currentPage.numberOfElements}}<br>
