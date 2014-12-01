@@ -160,10 +160,6 @@ contractModule.controller('contractListController',
 			$scope.currentPage = page;
 			$scope.pagination.totalItems = page.totalElements
 		});
-		//$scope.pagination.totalItems = $scope.currentPage.totalElements;
-		//alert('totalElements: ' + $scope.pagination.totalItems);
-		//contractService.getConfig().listView.doReloadFromDataSource = false;
-		
 		
 		$scope.toggleSpinner = function() {
 			spinnerService.isVisible(!spinnerService.getSpinner().isVisible);
