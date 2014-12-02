@@ -57,7 +57,9 @@ contractModule.factory('contractService',
 	
 		var CLASS_NAME = 'Contract';
 		var listViewOptions = [];
-		var contractConfig = {};
+		var contractConfig = {listView: {initialList: true,
+			  				  			 currentPageNumber: 1,
+			  				  			 maxItemsPerPage: 5}};
 		
 		var OPTION_NEW_CONTRACT_LABEL  = 'New Contract';
 		var OPTION_NEW_CONTRACT_URL = '/contracts/0';
@@ -128,11 +130,11 @@ contractModule.factory('contractService',
 		
 		contractFactory.setConfig = function(options) {
 			contractConfig = angular.extend({}, options);
-		}
+		};
 		
 		contractFactory.getConfig = function() {
 			return contractConfig;
-		}
+		};
 
 		return contractFactory;
 	}
@@ -147,13 +149,11 @@ contractModule.controller('contractListController',
 			 viewService,
 			 dataService,
 			 alertService,
-			 spinnerService) {
-	
-		contractService.setConfig({listView: {doReloadFromDataSource: true,
-											  currentPageNumber: 1,
-											  maxItemsPerPage: 5}});
+			 spinnerService,
+			 $timeout) {
 		
 		$scope.pagination = {pageNumber: contractService.getConfig().listView.currentPageNumber,
+<<<<<<< HEAD
 							 maxItems: contractService.getConfig().listView.maxItemsPerPage}
 		
 		contractService.getPage($scope.pagination.pageNumber).$promise.then(function(page){
@@ -161,21 +161,34 @@ contractModule.controller('contractListController',
 			$scope.pagination.totalItems = page.totalElements
 		});
 		
+=======
+							 maxItems: contractService.getConfig().listView.maxItemsPerPage,
+							 isDisabled: contractService.getConfig().listView.paginationIsDiabled};
+
+>>>>>>> branch 'home-laptop' of https://github.com/malsjalbl/contractor
 		$scope.toggleSpinner = function() {
 			spinnerService.isVisible(!spinnerService.getSpinner().isVisible);
 		};
 		
 		$scope.listViewOptions = contractService.getListViewOptions();
 
-		// $scope.optionsOnListView = contractService.getOptionsOnListView();
 		$scope.defaultContractAction = $scope.listViewOptions[0];
 		
 		$scope.listOptions = {page: $scope.currentPage,
 							  rowsPerPage: [10, 25, 50]};
 		
 		$scope.updatePage = function() {
-			$scope.currentPage = contractService.getPage($scope.pagination.pageNumber);
+			spinnerService.isVisible(true);
+			contractService.getPage($scope.pagination.pageNumber).$promise.then(function(page) {
+				$scope.currentPage = page;
+				$scope.pagination.totalItems = page.totalElements;
+				spinnerService.isVisible(false);
+			});
 		};
+		
+		$timeout($scope.updatePage(), 3000);
+		//$scope.updatePage();
+
 
 		  $scope.popupAreYouSure = function(contract) {
 			  
