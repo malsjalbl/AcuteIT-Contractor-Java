@@ -149,26 +149,26 @@ contractModule.controller('contractListController',
 			 viewService,
 			 dataService,
 			 alertService,
-			 spinnerService,
-			 $timeout) {
-		
-		$scope.pagination = {pageNumber: contractService.getConfig().listView.currentPageNumber,
-<<<<<<< HEAD
-							 maxItems: contractService.getConfig().listView.maxItemsPerPage}
-		
-		contractService.getPage($scope.pagination.pageNumber).$promise.then(function(page){
-			$scope.currentPage = page;
-			$scope.pagination.totalItems = page.totalElements
-		});
-		
-=======
-							 maxItems: contractService.getConfig().listView.maxItemsPerPage,
-							 isDisabled: contractService.getConfig().listView.paginationIsDiabled};
+			 spinnerService) {
 
->>>>>>> branch 'home-laptop' of https://github.com/malsjalbl/contractor
-		$scope.toggleSpinner = function() {
-			spinnerService.isVisible(!spinnerService.getSpinner().isVisible);
-		};
+	$scope.pagination = {pageNumber: contractService.getConfig().listView.currentPageNumber,
+							 maxItems:   contractService.getConfig().listView.maxItemsPerPage}
+		
+		spinnerService.isVisible(true);	
+		contractService.getPage($scope.pagination.pageNumber).$promise.then(
+				
+			function(page) {
+				// Promise fulfilled - with success
+				$scope.currentPage = page;
+				$scope.pagination.totalItems = page.totalElements
+				spinnerService.isVisible(false);
+			},
+			
+			function(page) {
+				spinnerService.isVisible(false);
+				// Promise fulfilled - with error
+			}
+		);
 		
 		$scope.listViewOptions = contractService.getListViewOptions();
 
@@ -178,17 +178,23 @@ contractModule.controller('contractListController',
 							  rowsPerPage: [10, 25, 50]};
 		
 		$scope.updatePage = function() {
+			
 			spinnerService.isVisible(true);
-			contractService.getPage($scope.pagination.pageNumber).$promise.then(function(page) {
-				$scope.currentPage = page;
-				$scope.pagination.totalItems = page.totalElements;
-				spinnerService.isVisible(false);
-			});
+			contractService.getPage($scope.pagination.pageNumber).$promise.then(
+					
+				function(page) {
+					// Promise fulfilled - with success
+					$scope.currentPage = page;
+					$scope.pagination.totalItems = page.totalElements;
+					spinnerService.isVisible(false);
+				},
+				
+				function(page) {
+					// Promise fulfilled - with error
+					spinnerService.isVisible(false);
+				}
+			);
 		};
-		
-		$timeout($scope.updatePage(), 3000);
-		//$scope.updatePage();
-
 
 		  $scope.popupAreYouSure = function(contract) {
 			  

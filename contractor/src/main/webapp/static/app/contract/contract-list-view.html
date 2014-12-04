@@ -16,7 +16,7 @@
 
 </br>
 
-	<button data-ng-click="toggleSpinner()">Toggle Spinner</button>
+	<!-- <button data-ng-click="toggleSpinner()">Toggle Spinner</button> -->
 	
 	
 	<data-my-list rows="currentPage.content" on-delete="popupAreYouSure(entity)">
@@ -28,10 +28,20 @@
 	    <column title=""><button class="btn pull-right" data-tooltip="Delete {{row.symbol}}" data-ng-click="deleteRow({entity: row})"><span class="glyphicon glyphicon-remove-sign"></span></button></column>
 	</data-my-list>
 	
-	numberOfElements: {{currentPage.numberOfElements}}<br>
+	<!-- numberOfElements: {{currentPage.numberOfElements}}<br>
 	size: {{currentPage.size}}<br>
 	totalElements: {{currentPage.totalElements}}<br>
 	Current Page Number: {{pagination.pageNumber}} <br>
-	Number of pages: {{currentPage.totalPages}}<br>
+	Number of pages: {{currentPage.totalPages}}<br> -->
+	
+	<div data-ng-controller="SpinnerCtrl">
+		<div class="panel panel-primary" data-ng-show="spinner.isVisible">
+			<div class="panel-body">
+				I'm Busy!
+				<img data-ng-src="{{spinner.src}}">
+			</div>
+		</div>
+	</div>
+</div>
 	
 

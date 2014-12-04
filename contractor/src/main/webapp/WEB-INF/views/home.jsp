@@ -107,14 +107,6 @@
 		</div>
 	</div>
 	
-	
-	<div data-ng-controller="SpinnerCtrl">
-		<div data-ng-show="spinner.isVisible">
-			showtime!
-			<img data-ng-src="{{spinner.src}}">
-		</div>
-	</div>
-	
 	<!-- Main content area -->
 	<!-- ***************** -->
 	
