@@ -1,1 +1,23 @@
-Contains a home project which may contain useful reference material in the workplace.
+#mydiv {  
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1000;
+    background-color:grey;
+    opacity: .8;
+ }
+
+.ajax-loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -32px; /* -1 * image width / 2 */
+    margin-top: -32px;  /* -1 * image height / 2 */
+    display: block;     
+}
+
+<div id="mydiv">
+    <img src="lib/jQuery/images/ajax-loader.gif" class="ajax-loader"/>
+</div>
