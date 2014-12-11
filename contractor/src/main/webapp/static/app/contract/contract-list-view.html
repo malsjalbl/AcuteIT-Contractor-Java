@@ -35,13 +35,13 @@
 	Number of pages: {{currentPage.totalPages}}<br> -->
 	
 	<div data-ng-controller="SpinnerCtrl">
-		<div class="panel panel-primary" data-ng-show="spinner.isVisible">
-			<div class="panel-body">
-				I'm Busy!
+		<div class="spinner-backdrop" data-ng-show="spinner.isVisible">
+			<div class="ajax-loader">
+				<p>Loading...</p>
 				<img data-ng-src="{{spinner.src}}">
 			</div>
 		</div>
 	</div>
-</div>
+
 	
 

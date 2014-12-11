@@ -5,6 +5,7 @@
     
     <link rel="stylesheet" type="text/css" href="static/twitter-bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="static/app/common/dialog/dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="static/app/common/spinner/spinner.css"/>
     <script src="static/jquery/jquery-1.9.1.min.js"></script>
     <script src="static/angularJS/angular.js"></script>
     <script src="static/angularJS/angular-resource.js"></script>
