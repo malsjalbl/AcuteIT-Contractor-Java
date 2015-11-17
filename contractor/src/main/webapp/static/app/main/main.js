@@ -2,37 +2,6 @@ var mainModule = angular.module('main', ['ngAnimate','contract']);
 
 mainModule.value('defaultModule', 0);
 
-mainModule.run(
-		
-	/* function(mainService) {
-		
-		mainService.registerModule({
-			
-			displayName:	'Mileage',
-			homeUrl:		'#/mileages',
-			views:			[{displayName: 'Vehicle List', homeUrl: '#/vehicles'},		
-			      			 {displayName: 'Journey List', homeUrl: '#/journeys'}]
-		});
-		
-		mainService.registerModule({
-			
-			displayName:	'Tax',
-			homeUrl:		'#/tax-years',
-			views:			[{displayName: 'Vehicles', homeUrl: '#/vehicles'},		
-			      			 {displayName: 'Journeys', homeUrl: '#/journeys'}]
-		});
-		
-		mainService.registerModule({
-			
-			displayName:	'App Data',
-			homeUrl:		'#/app-data',
-			views:			[{displayName: 'Comapnies', homeUrl: '#/comapnies'},
-			      			 {displayName: 'Locations', homeUrl: '#/locations'},
-			      			 {displayName: 'Journeys', homeUrl: '#/journeys'}]
-		});
-	}*/
-);
-
 mainModule.controller('mainController',
 		
 	function($scope, mainService) {
@@ -81,7 +50,6 @@ mainModule.factory('mainService',
 		
 		mainFactory.getModuleViews = function(activeModule) {
 			
-			alert(modules);
 			return modules[activeModule].views;
 		};
 		
