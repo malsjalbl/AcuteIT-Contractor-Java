@@ -1,0 +1,27 @@
+<form name="contractStatusDetailForm">
+
+	<fieldset>
+	
+		<p class="lead">Contract Status Detail</p>
+		
+		<label>ID</label>
+		<input type="text" ng-model="contractStatus.id">
+		
+		<label>Contract Status</label>
+		<input type="text" ng-model="contractStatus.symbol" required>
+		
+		<label>Description</label>
+		<input type="text" ng-model="contractStatus.description">
+		<br>
+		<br>
+		
+		<button class="btn" data-ng-click="saveContractStatus()" ng-disabled="contractStatusDetailForm.$invalid || contractStatusDetailForm.$pristine">
+			<i class="icon-check"></i> Save
+		</button>
+		<button class="btn" data-ng-click="cancelAndReturnToContractStatusList()">
+			<i class="icon-circle-arrow-left"></i> Return to Contract Status List
+		</button>
+		Invalid - {{contractStatusDetailForm.$invalid}} :: Pristine - {{contractStatusDetailForm.$pristine}} ::  Dirty - {{contractStatusDetailForm.$dirty}}	
+	</fieldset>
+	
+</form>
